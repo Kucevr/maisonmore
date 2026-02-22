@@ -1,0 +1,269 @@
+import { useEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
+import { Link } from 'react-router-dom';
+
+export const Hero = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const loadingRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const headerLeftRef = useRef<HTMLDivElement>(null);
+  const headerRightRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
+  const bottomTextRef = useRef<HTMLDivElement>(null);
+  const scrollDownRef = useRef<HTMLDivElement>(null);
+
+  const [progress, setProgress] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [isHeroDone, setIsHeroDone] = useState(false);
+
+  // Dedicated Effect for Scroll Locking
+  useEffect(() => {
+    if (isHeroDone) return;
+
+    const lockScroll = () => {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+      document.documentElement.classList.add('lenis-stopped');
+      if ((window as any).lenis) {
+        (window as any).lenis.stop();
+        (window as any).lenis.scrollTo(0, { immediate: true });
+      }
+      window.scrollTo(0, 0);
+    };
+
+    // Lock immediately
+    lockScroll();
+
+    // Re-lock periodically during loading to handle any race conditions with Lenis init
+    const lockInterval = setInterval(lockScroll, 50);
+
+    return () => {
+      clearInterval(lockInterval);
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      document.documentElement.classList.remove('lenis-stopped');
+      if ((window as any).lenis) {
+        (window as any).lenis.start();
+      }
+    };
+  }, [isHeroDone]);
+
+  useEffect(() => {
+    // Check if it's the first time visiting in this session
+    const hasVisited = sessionStorage.getItem('hasVisited');
+    if (hasVisited) {
+      setProgress(100);
+      setIsLoaded(true);
+      if (loadingRef.current) loadingRef.current.style.display = 'none';
+      return;
+    }
+
+    // Dynamic Loading Animation (0 to 100%)
+    const duration = 2000; // 2 seconds
+    const startTime = performance.now();
+
+    const animateLoader = (time: number) => {
+      const elapsed = time - startTime;
+      const progressValue = Math.min((elapsed / duration) * 100, 100);
+      
+      const easeProgress = progressValue < 50 
+        ? 2 * Math.pow(progressValue / 100, 2) * 100 
+        : (1 - Math.pow(-2 * (progressValue / 100) + 2, 2) / 2) * 100;
+
+      setProgress(Math.floor(easeProgress));
+
+      if (progressValue < 100) {
+        requestAnimationFrame(animateLoader);
+      } else {
+        sessionStorage.setItem('hasVisited', 'true');
+        // When 100% is reached, slide the loading screen up
+        gsap.to(loadingRef.current, {
+          yPercent: -100,
+          duration: 1.2,
+          delay: 0.2,
+          ease: "power3.inOut",
+          onComplete: () => {
+            if (loadingRef.current) loadingRef.current.style.display = 'none';
+            setIsLoaded(true);
+          }
+        });
+      }
+    };
+
+    requestAnimationFrame(animateLoader);
+  }, []);
+
+  useEffect(() => {
+    if (!isLoaded || isHeroDone) return;
+
+    let touchStartY = 0;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartY = e.touches[0].clientY;
+    };
+
+    const handleScroll = (e: WheelEvent | TouchEvent) => {
+      if (isAnimating || isHeroDone) return;
+      
+      let isScrollDown = false;
+      if (e instanceof WheelEvent) {
+        if (e.cancelable) e.preventDefault();
+        isScrollDown = e.deltaY > 0;
+      } else if (e instanceof TouchEvent) {
+        const touchEndY = e.changedTouches[0].clientY;
+        const deltaY = touchStartY - touchEndY;
+        if (deltaY > 50) { // Swipe up
+          isScrollDown = true;
+          if (e.cancelable) e.preventDefault();
+        }
+      }
+
+      if (isScrollDown) {
+        setIsAnimating(true);
+        window.scrollTo(0, 0);
+        if ((window as any).lenis) (window as any).lenis.scrollTo(0, { immediate: true });
+        
+        const tl = gsap.timeline({
+          onStart: () => {
+            window.scrollTo(0, 0);
+          },
+          onComplete: () => {
+            setIsHeroDone(true);
+            window.dispatchEvent(new Event('heroDone')); // Notify global Header
+            
+            // Hide the fake nav elements when animation is done
+            gsap.to([headerLeftRef.current, headerRightRef.current], {
+              opacity: 0,
+              duration: 0.3
+            });
+          }
+        });
+
+        // Image expands from bottom center to full screen
+        tl.to(imageRef.current, {
+          width: "100vw",
+          height: "100vh",
+          bottom: 0,
+          duration: 1.5,
+          ease: "power3.inOut"
+        }, 0);
+
+        // Title shrinks and moves to top left
+        tl.to(titleRef.current, {
+          top: "24px",
+          left: window.innerWidth < 768 ? "24px" : "24px", 
+          fontSize: window.innerWidth < 768 ? "1.25rem" : "1.5rem", // Match header text-xl / text-2xl
+          xPercent: 0,
+          color: "white",
+          duration: 1.5,
+          ease: "power3.inOut"
+        }, 0);
+
+        // Header Left moves up - hidden on mobile in real header, so we can hide it here too
+        tl.to(headerLeftRef.current, {
+          top: "28px",
+          left: "250px",
+          color: "white",
+          opacity: window.innerWidth < 768 ? 0 : 1,
+          duration: 1.5,
+          ease: "power3.inOut"
+        }, 0);
+
+        // Header Right moves up
+        tl.to(headerRightRef.current, {
+          top: "28px",
+          color: "white",
+          duration: 1.5,
+          ease: "power3.inOut"
+        }, 0);
+
+        // Bottom texts turn white
+        tl.to([bottomTextRef.current, scrollDownRef.current], {
+          color: "white",
+          duration: 1.5,
+          ease: "power3.inOut"
+        }, 0);
+      }
+    };
+
+    window.addEventListener('wheel', handleScroll, { passive: false });
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleScroll, { passive: false });
+
+    return () => {
+      window.removeEventListener('wheel', handleScroll);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleScroll);
+    };
+  }, [isLoaded, isAnimating, isHeroDone]);
+
+  return (
+    <section ref={containerRef} className="relative h-screen w-full bg-white overflow-hidden">
+      {/* Loading Screen (Photo 1) */}
+      <div ref={loadingRef} className="absolute inset-0 bg-black text-white z-50 flex flex-col justify-between p-6">
+        <div className="flex justify-between text-sm font-medium">
+          <div>Design studio<br/>Architecture & interior</div>
+          <div className="text-center">South Yarra<br/>Australia</div>
+          <div className="text-right">Loading<br/>{progress}%</div>
+        </div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center">
+          <h1 className="text-[16vw] font-bold tracking-tighter leading-none uppercase">Maison More</h1>
+        </div>
+      </div>
+
+      {/* Main Content (Initial state is Photo 2, scrolled state is Photo 3) */}
+      <div className="absolute inset-0 w-full h-full">
+        <h1 
+          ref={titleRef}
+          className="absolute top-[5%] left-1/2 -translate-x-1/2 text-[16vw] font-bold tracking-tighter leading-none uppercase text-black z-30 whitespace-nowrap origin-top-left"
+        >
+          Maison More
+        </h1>
+
+        <div 
+          ref={headerLeftRef}
+          className="absolute top-[22vw] left-6 text-sm font-medium text-black z-30 flex gap-1"
+        >
+          <Link to="/work" className="hover:opacity-50 transition-opacity">Work</Link>, 
+          <Link to="/process" className="hover:opacity-50 transition-opacity">Process</Link>, 
+          <Link to="/studio" className="hover:opacity-50 transition-opacity">Studio</Link>
+        </div>
+
+        <div 
+          ref={headerRightRef}
+          className="absolute top-[22vw] right-6 flex gap-10 text-sm font-medium text-black z-30"
+        >
+          <div className="text-gray-400 opacity-50">09:30 PM South Yarra, AUS</div>
+          <Link to="/contact" className="hover:opacity-50 transition-opacity">Contact</Link>
+        </div>
+
+        <div 
+          ref={imageRef}
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[40vw] h-[45vh] z-20"
+        >
+          <img 
+            src="/assets/hero/main.png" 
+            alt="Hero" 
+            className="w-full h-full object-cover"
+          />
+        </div>
+
+        <div 
+          ref={scrollDownRef}
+          className="absolute bottom-6 left-6 text-30px text-black z-30"
+        >
+          [Scroll down]
+        </div>
+
+        <div 
+          ref={bottomTextRef}
+          className="absolute bottom-6 right-20 max-w-[250px] text-left text-30px font-medium text-black z-30 leading-tight"
+        >
+          Driven by History,Centered on<br/>
+          Context,Embracing Culture
+        </div>
+      </div>
+    </section>
+  );
+};
