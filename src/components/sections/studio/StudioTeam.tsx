@@ -1,5 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { RevealText } from '../../ui/RevealText';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const teamMembers = [
   { name: 'Andre Maison', role: 'Director', image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop' },
@@ -20,42 +24,31 @@ const teamMembers = [
 
 export function StudioTeam() {
   const [activeIndex, setActiveIndex] = useState(2); // Default to Lisa Kalker as in screenshot
-  const namesContainerRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const mobileNamesRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.innerWidth >= 1024 || !namesContainerRef.current) return; // Only on mobile/tablet
-
-      const container = namesContainerRef.current;
-      const items = container.querySelectorAll('.team-member-name');
-      const containerRect = container.getBoundingClientRect();
-      const containerCenter = containerRect.top + containerRect.height / 2;
-
-      let closestIndex = activeIndex;
-      let minDistance = Infinity;
-
-      items.forEach((item, index) => {
-        const rect = item.getBoundingClientRect();
-        const itemCenter = rect.top + rect.height / 2;
-        const distance = Math.abs(containerCenter - itemCenter);
-
-        if (distance < minDistance) {
-          minDistance = distance;
-          closestIndex = index;
-        }
-      });
-
-      if (closestIndex !== activeIndex) {
-        setActiveIndex(closestIndex);
+    let ctx = gsap.context(() => {
+      if (window.innerWidth < 1024) {
+        mobileNamesRef.current.forEach((nameEl, index) => {
+          if (!nameEl) return;
+          
+          ScrollTrigger.create({
+            trigger: nameEl,
+            start: "top center+=100",
+            end: "bottom center-=100",
+            onEnter: () => setActiveIndex(index),
+            onEnterBack: () => setActiveIndex(index),
+          });
+        });
       }
-    };
+    }, sectionRef);
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [activeIndex]);
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section className="px-4 md:px-8 lg:px-12 py-20">
+    <section ref={sectionRef} className="px-4 md:px-8 lg:px-12 py-20 relative">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 relative">
         {/* Left - Title */}
         <div className="lg:col-span-3 mb-8 lg:mb-0">
@@ -64,22 +57,19 @@ export function StudioTeam() {
           </h3>
         </div>
 
-        {/* Mobile Layout: Names Left, Image Right */}
-        <div className="lg:hidden flex gap-4 h-[60vh] relative">
-          {/* Names Scrollable Area */}
-          <div 
-            ref={namesContainerRef}
-            className="w-1/2 overflow-y-auto snap-y snap-mandatory hide-scrollbar relative"
-            style={{ paddingBottom: '50vh', paddingTop: '20vh' }}
-          >
+        {/* Mobile Layout: Names Scrolling with Page, Image Sticky */}
+        <div className="lg:hidden grid grid-cols-2 gap-4 relative">
+          {/* Names Column */}
+          <div className="flex flex-col gap-[30vh] py-[30vh]">
             {teamMembers.map((member, index) => (
               <div 
                 key={index}
-                className="team-member-name w-full py-4 snap-center flex justify-start"
+                ref={el => { mobileNamesRef.current[index] = el; }}
+                className="w-full flex justify-start min-h-[100px]"
               >
                 <h4 
-                  className={`text-2xl md:text-4xl font-medium tracking-tight transition-colors duration-300 text-left ${
-                    activeIndex === index ? 'text-black' : 'text-gray-300'
+                  className={`text-2xl md:text-3xl font-medium tracking-tight transition-all duration-500 text-left ${
+                    activeIndex === index ? 'text-black scale-110' : 'text-gray-300 scale-100'
                   }`}
                 >
                   {member.name}
@@ -88,13 +78,13 @@ export function StudioTeam() {
             ))}
           </div>
 
-          {/* Sticky Image Area */}
-          <div className="w-1/2 relative h-full">
-            <div className="sticky top-1/2 -translate-y-1/2 w-full aspect-[3/4] overflow-hidden">
+          {/* Sticky Image Column */}
+          <div className="relative">
+            <div className="sticky top-[30%] w-full aspect-[3/4] overflow-hidden shadow-sm">
               {teamMembers.map((member, index) => (
                 <div 
                   key={index}
-                  className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
+                  className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
                     activeIndex === index ? 'opacity-100 z-10' : 'opacity-0 z-0'
                   }`}
                 >
@@ -105,9 +95,9 @@ export function StudioTeam() {
                     loading="lazy"
                     decoding="async"
                   />
-                  <div className="absolute bottom-0 left-0 right-0 py-1 flex justify-between text-[10px] bg-white">
+                  <div className="absolute bottom-0 left-0 right-0 py-1 flex justify-between text-[10px] bg-white border-t border-gray-100 font-medium">
                     <span>[</span>
-                    <span className="truncate px-1">{member.role}</span>
+                    <span className="truncate px-1 uppercase">{member.role}</span>
                     <span>]</span>
                   </div>
                 </div>

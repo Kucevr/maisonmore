@@ -132,13 +132,13 @@ export const WorkPage = () => {
         onEnterBack: () => {
           if (buttonRef.current) {
             buttonRef.current.style.position = 'fixed';
-            buttonRef.current.style.bottom = '2rem';
+            buttonRef.current.style.bottom = window.innerWidth < 768 ? '1rem' : '2rem';
           }
         },
         onLeave: () => {
           if (buttonRef.current) {
             buttonRef.current.style.position = 'absolute';
-            buttonRef.current.style.bottom = '10rem'; // Increased spacing from bottom
+            buttonRef.current.style.bottom = window.innerWidth < 768 ? '2rem' : '4rem';
           }
         }
       });

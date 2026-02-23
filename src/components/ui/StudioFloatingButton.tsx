@@ -47,13 +47,13 @@ export const StudioFloatingButton = () => {
         onEnterBack: () => {
           if (buttonRef.current) {
             buttonRef.current.style.position = 'fixed';
-            buttonRef.current.style.bottom = '2rem';
+            buttonRef.current.style.bottom = window.innerWidth < 768 ? '1rem' : '2rem';
           }
         },
         onLeave: () => {
           if (buttonRef.current) {
             buttonRef.current.style.position = 'absolute';
-            buttonRef.current.style.bottom = '10rem';
+            buttonRef.current.style.bottom = window.innerWidth < 768 ? '2rem' : '4rem';
           }
         }
       });
@@ -81,7 +81,7 @@ export const StudioFloatingButton = () => {
         <span className="text-sm font-medium flex items-center gap-1">
           <span className="hidden sm:inline">Let's work together in</span>
           <span className="sm:hidden">Work in</span>
-          <span className="overflow-hidden h-5 relative w-20 sm:w-24 inline-block">
+          <span className="overflow-hidden h-5 relative w-[80px] sm:w-[110px] inline-block">
             <span 
               ref={textRef}
               className="absolute left-0 top-0 whitespace-nowrap"
