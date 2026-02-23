@@ -96,6 +96,8 @@ export const ProcessPage = () => {
           src="/assets/parlington/hero.jpg" 
           alt="Process Parallax" 
           className="absolute top-[-20%] left-0 w-full h-[140%] object-cover"
+          loading="lazy"
+          decoding="async"
         />
       </div>
 
@@ -122,8 +124,8 @@ export const ProcessPage = () => {
           <div className="w-full md:w-1/4"></div>
         </div>
         <div className="flex flex-col md:flex-row gap-6 w-full h-[60vh]">
-          <img src="/assets/loller/hero.jpg" className="w-full md:w-1/2 h-full object-cover" alt="Philosophy 1" />
-          <img src="/assets/armadale-office/hero.jpg" className="w-full md:w-1/2 h-full object-cover" alt="Philosophy 2" />
+          <img src="/assets/loller/hero.jpg" className="w-full md:w-1/2 h-full object-cover" alt="Philosophy 1" loading="lazy" decoding="async" />
+          <img src="/assets/armadale-office/hero.jpg" className="w-full md:w-1/2 h-full object-cover" alt="Philosophy 2" loading="lazy" decoding="async" />
         </div>
       </div>
 
@@ -170,7 +172,7 @@ export const ProcessPage = () => {
               </div>
               <div className="w-full md:w-1/4 flex justify-end">
                 <div className={`w-full aspect-[4/3] ${item.bgColor} flex items-center justify-center p-10`}>
-                  <img src={item.logo} alt={item.title} className="w-1/2 h-1/2 object-contain mix-blend-multiply" />
+                  <img src={item.logo} alt={item.title} className="w-1/2 h-1/2 object-contain mix-blend-multiply" loading="lazy" decoding="async" />
                 </div>
               </div>
             </div>

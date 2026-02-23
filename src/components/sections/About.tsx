@@ -13,6 +13,8 @@ export const About = () => {
               src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053&auto=format&fit=crop" 
               className="w-full aspect-[4/5] object-cover" 
               alt="Studio" 
+              loading="lazy"
+              decoding="async"
             />
           </div>
         </div>

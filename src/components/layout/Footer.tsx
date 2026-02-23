@@ -65,17 +65,21 @@ export const Footer = () => {
         </div>
       </div>
 
-      <div className="flex justify-between items-end mt-24 pb-10">
-        <div className="text-sm font-bold"><RevealText>Subscribe to our newsletter</RevealText></div>
-        <div className="w-1/3 border-b border-black flex justify-between items-center pb-2">
-          <input type="email" placeholder="Enter your email" className="outline-none w-full text-sm" />
-          <span>→</span>
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end mt-24 pb-10 gap-8 md:gap-0">
+        <div className="w-full md:w-auto flex flex-col gap-4">
+          <div className="text-sm font-bold"><RevealText>Subscribe to our newsletter</RevealText></div>
+          <div className="w-full md:w-64 border-b border-black flex justify-between items-center pb-2">
+            <input type="email" placeholder="Enter your email" className="outline-none w-full text-sm" />
+            <span>→</span>
+          </div>
         </div>
-        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-sm text-gray-400 hover:text-black transition-colors cursor-pointer"><RevealText>Back to top</RevealText></button>
-        <div className="text-sm font-bold flex gap-2">
-          <RevealText>
-            <a href="#" className="hover:opacity-50 transition-opacity">Instagram</a>, <a href="#" className="hover:opacity-50 transition-opacity">LinkedIn</a>
-          </RevealText>
+        <div className="flex flex-col items-start md:items-end gap-4">
+          <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="text-sm text-gray-400 hover:text-black transition-colors cursor-pointer"><RevealText>Back to top</RevealText></button>
+          <div className="text-sm font-bold flex gap-2">
+            <RevealText>
+              <a href="#" className="hover:opacity-50 transition-opacity">Instagram</a>, <a href="#" className="hover:opacity-50 transition-opacity">LinkedIn</a>
+            </RevealText>
+          </div>
         </div>
       </div>
 

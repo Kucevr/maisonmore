@@ -73,7 +73,7 @@ export const ProjectPage = () => {
 
       <div className="w-full px-6 md:px-12 mb-32">
         <div className="w-full aspect-[16/9] overflow-hidden bg-gray-100">
-          <img src={projectData.heroImage} alt={projectData.title} className="w-full h-full object-cover" />
+          <img src={projectData.heroImage} alt={projectData.title} className="w-full h-full object-cover" loading="lazy" decoding="async" />
         </div>
       </div>
 
@@ -126,7 +126,7 @@ export const ProjectPage = () => {
       {/* Image 2 */}
       <div className="w-full px-6 md:px-12 mb-32">
         <div className="w-full aspect-[21/9] overflow-hidden bg-gray-100">
-          <img src={projectData.image2} alt="Project view" className="w-full h-full object-cover" />
+          <img src={projectData.image2} alt="Project view" className="w-full h-full object-cover" loading="lazy" decoding="async" />
         </div>
       </div>
 
@@ -146,7 +146,7 @@ export const ProjectPage = () => {
       <div className="flex justify-center items-center px-6 md:px-12 mt-32">
         <Link to={`/work/${nextProject.slug}`} className="group flex items-center bg-black text-white rounded-xl overflow-hidden hover:scale-105 transition-transform duration-300">
           <div className="w-24 h-20 overflow-hidden">
-            <img src={nextProject.images[0]} alt={nextProject.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
+            <img src={nextProject.images[0]} alt={nextProject.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" loading="lazy" decoding="async" />
           </div>
           <div className="px-6 py-3">
             <div className="font-bold text-lg">{nextProject.title}</div>

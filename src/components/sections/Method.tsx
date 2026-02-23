@@ -30,19 +30,19 @@ export const Method = () => {
       </div>
 
       <div className="flex flex-col md:flex-row justify-between items-center gap-10">
-        <div className="w-full md:w-2/3 text-[4vw] md:text-[3vw] font-bold leading-tight tracking-tighter text-gray-300 flex flex-wrap gap-x-4">
+        <div className="w-full md:w-2/3 text-2xl md:text-[3vw] font-bold leading-tight tracking-tighter text-gray-300 flex flex-wrap gap-x-2 md:gap-x-4">
           {methods.map((m, i) => (
             <span
               key={i}
               onMouseEnter={() => setHovered(i)}
               className={`cursor-pointer transition-colors duration-300 ${hovered === i ? 'text-black' : ''}`}
             >
-              {m.title} <sup className="text-[1.5vw] font-medium">({m.num})</sup> {i !== methods.length - 1 && <span className="mx-2 font-light">/</span>}
+              {m.title} <sup className="text-sm md:text-[1.5vw] font-medium">({m.num})</sup> {i !== methods.length - 1 && <span className="mx-1 md:mx-2 font-light">/</span>}
             </span>
           ))}
         </div>
         <div className="w-full md:w-1/3 md:pl-10">
-          <img src={methods[hovered].img} className="w-full aspect-[4/5] object-cover transition-all duration-500" alt="Method" />
+          <img src={methods[hovered].img} className="w-full aspect-[4/5] object-cover transition-all duration-500" alt="Method" loading="lazy" decoding="async" />
         </div>
       </div>
     </section>

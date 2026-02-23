@@ -69,21 +69,21 @@ export const AllWork = () => {
       {/* Floating Images Collage */}
       {collageImages.map((src, i) => {
         const imageSettings = [
-          { pos: "top-[10vh] left-[5%] w-[20vw] h-[30vh]", opacity: 0.9, scale: 0.8 },
-          { pos: "top-[25vh] right-[5%] w-[25vw] h-[40vh]", opacity: 0.9, scale: 1.1 },
-          { pos: "top-[40vh] left-[25%] w-[15vw] h-[25vh]", opacity: 0.7, scale: 0.9 },
-          { pos: "top-[80vh] right-[20%] w-[18vw] h-[28vh]", opacity: 0.9, scale: 1.2 },
-          { pos: "top-[85vh] left-[8%] w-[22vw] h-[35vh]", opacity: 0.9, scale: 1.5 },
-          { pos: "top-[105vh] right-[20%] w-[20vw] h-[30vh]", opacity: 0.9, scale: 1.15 },
-          { pos: "top-[100vh] left-[25%] w-[26vw] h-[38vh]", opacity: 1, scale: 0.75 },
-          { pos: "top-[135vh] right-[5%] w-[18vw] h-[26vh]", opacity: 0.8, scale: 1.05 },
-          { pos: "top-[150vh] left-[10%] w-[24vw] h-[36vh]", opacity: 0.6, scale: 0.95 },
-          { pos: "top-[185vh] right-[25%] w-[22vw] h-[32vh]", opacity: 1, scale: 1.1 },
-          { pos: "top-[175vh] left-[5%] w-[20vw] h-[28vh]", opacity: 0.9, scale: 0.9 },
-          { pos: "top-[180vh] right-[10%] w-[24vw] h-[34vh]", opacity: 0.9, scale: 1.2 },
-          { pos: "top-[175vh] left-[5%] w-[15vw] h-[25vh]", opacity: 1, scale: 1 },
-          { pos: "top-[240vh] right-[40%] w-[28vw] h-[40vh]", opacity: 0.8, scale: 1.1 },
-          { pos: "top-[205vh] left-[25%] w-[22vw] h-[32vh]", opacity: 0.8, scale: 0.9 },
+          { pos: "top-[10vh] left-[-5%] md:left-[5%] w-[40vw] md:w-[20vw] h-[30vh]", opacity: 0.9, scale: 0.8 },
+          { pos: "top-[25vh] right-[-10%] md:right-[5%] w-[45vw] md:w-[25vw] h-[40vh]", opacity: 0.9, scale: 1.1 },
+          { pos: "top-[40vh] left-[15%] md:left-[25%] w-[35vw] md:w-[15vw] h-[25vh]", opacity: 0.7, scale: 0.9 },
+          { pos: "top-[80vh] right-[5%] md:right-[20%] w-[38vw] md:w-[18vw] h-[28vh]", opacity: 0.9, scale: 1.2 },
+          { pos: "top-[85vh] left-[-5%] md:left-[8%] w-[42vw] md:w-[22vw] h-[35vh]", opacity: 0.9, scale: 1.5 },
+          { pos: "top-[105vh] right-[5%] md:right-[20%] w-[40vw] md:w-[20vw] h-[30vh]", opacity: 0.9, scale: 1.15 },
+          { pos: "top-[100vh] left-[10%] md:left-[25%] w-[46vw] md:w-[26vw] h-[38vh]", opacity: 1, scale: 0.75 },
+          { pos: "top-[135vh] right-[-5%] md:right-[5%] w-[38vw] md:w-[18vw] h-[26vh]", opacity: 0.8, scale: 1.05 },
+          { pos: "top-[150vh] left-[-10%] md:left-[10%] w-[44vw] md:w-[24vw] h-[36vh]", opacity: 0.6, scale: 0.95 },
+          { pos: "top-[185vh] right-[10%] md:right-[25%] w-[42vw] md:w-[22vw] h-[32vh]", opacity: 1, scale: 1.1 },
+          { pos: "top-[175vh] left-[-5%] md:left-[5%] w-[40vw] md:w-[20vw] h-[28vh]", opacity: 0.9, scale: 0.9 },
+          { pos: "top-[180vh] right-[-10%] md:right-[10%] w-[44vw] md:w-[24vw] h-[34vh]", opacity: 0.9, scale: 1.2 },
+          { pos: "top-[175vh] left-[-5%] md:left-[5%] w-[35vw] md:w-[15vw] h-[25vh]", opacity: 1, scale: 1 },
+          { pos: "top-[240vh] right-[20%] md:right-[40%] w-[48vw] md:w-[28vw] h-[40vh]", opacity: 0.8, scale: 1.1 },
+          { pos: "top-[205vh] left-[10%] md:left-[25%] w-[42vw] md:w-[22vw] h-[32vh]", opacity: 0.8, scale: 0.9 },
         ];
         
         const setting = imageSettings[i % imageSettings.length];
@@ -99,6 +99,8 @@ export const AllWork = () => {
               transform: `scale(${setting.scale})`
             }}
             alt={`Work ${i + 1}`} 
+            loading="lazy"
+            decoding="async"
           />
         );
       })}

@@ -101,6 +101,8 @@ export const Vision = () => {
             src="/assets/fitzroy-north/hero.jpg"
             className="w-full h-full object-cover opacity-50"
             alt="Vision Background"
+            loading="lazy"
+            decoding="async"
           />
           <div ref={overlayRef} className="absolute inset-0 bg-black opacity-0"></div>
         </div>

@@ -79,8 +79,9 @@ export const StudioFloatingButton = () => {
           <div className="bg-white rounded-sm"></div>
         </div>
         <span className="text-sm font-medium flex items-center gap-1">
-          <span>Let's work together in</span>
-          <span className="overflow-hidden h-5 relative w-20 inline-block">
+          <span className="hidden sm:inline">Let's work together in</span>
+          <span className="sm:hidden">Work in</span>
+          <span className="overflow-hidden h-5 relative w-20 sm:w-24 inline-block">
             <span 
               ref={textRef}
               className="absolute left-0 top-0 whitespace-nowrap"

@@ -45,25 +45,25 @@ export function StudioAwards() {
       </div>
 
       <div className="w-full">
-        {/* Table Header */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 pb-6 border-b border-gray-200 text-sm font-medium">
-          <div className="md:col-span-2"><RevealText>Year</RevealText></div>
-          <div className="md:col-span-4"><RevealText>Project</RevealText></div>
-          <div className="md:col-span-3"><RevealText>Contest</RevealText></div>
-          <div className="md:col-span-3"><RevealText>Distinction</RevealText></div>
+        {/* Table Header (Desktop Only) */}
+        <div className="hidden md:grid grid-cols-12 gap-4 pb-6 border-b border-gray-200 text-sm font-medium">
+          <div className="col-span-2"><RevealText>Year</RevealText></div>
+          <div className="col-span-4"><RevealText>Project</RevealText></div>
+          <div className="col-span-3"><RevealText>Contest</RevealText></div>
+          <div className="col-span-3"><RevealText>Distinction</RevealText></div>
         </div>
 
         {/* Table Body */}
         <div className="flex flex-col">
           {awards.map((awardGroup, index) => (
-            <div key={index} className="grid grid-cols-1 md:grid-cols-12 gap-4 py-8 border-b border-gray-200 text-sm">
-              <div className="md:col-span-2 font-medium"><RevealText>{awardGroup.year}</RevealText></div>
-              <div className="md:col-span-10 grid grid-cols-1 gap-4">
+            <div key={index} className="flex flex-col md:grid md:grid-cols-12 gap-4 py-8 border-b border-gray-200 text-sm">
+              <div className="md:col-span-2 font-medium mb-4 md:mb-0"><RevealText>{awardGroup.year}</RevealText></div>
+              <div className="md:col-span-10 flex flex-col gap-8 md:gap-4">
                 {awardGroup.items.map((item, itemIndex) => (
-                  <div key={itemIndex} className="grid grid-cols-1 md:grid-cols-10 gap-4">
-                    <div className="md:col-span-4"><RevealText>{item.project}</RevealText></div>
-                    <div className="md:col-span-3"><RevealText>{item.contest}</RevealText></div>
-                    <div className="md:col-span-3"><RevealText>{item.distinction}</RevealText></div>
+                  <div key={itemIndex} className="flex flex-col md:grid md:grid-cols-10 gap-2 md:gap-4">
+                    <div className="md:col-span-4 font-medium md:font-normal"><RevealText>{item.project}</RevealText></div>
+                    <div className="md:col-span-3 text-gray-500 md:text-black"><RevealText>{item.contest}</RevealText></div>
+                    <div className="md:col-span-3 text-gray-500 md:text-black"><RevealText>{item.distinction}</RevealText></div>
                   </div>
                 ))}
               </div>

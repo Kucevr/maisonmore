@@ -69,6 +69,8 @@ export function StudioHero() {
               src="/assets/studio/hero.jpg" 
               alt="Studio Interior" 
               className="w-full h-full object-cover"
+              loading="lazy"
+              decoding="async"
             />
           </div>
         </div>

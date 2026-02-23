@@ -110,8 +110,36 @@ export function StudioVision() {
         </div>
       </div>
 
-      {/* The Pinned Container */}
-      <div ref={pinContainerRef} className="w-full h-screen relative z-10 overflow-hidden">
+      {/* Mobile Layout (Stacking) */}
+      <div className="md:hidden w-full px-4 py-10 flex flex-col gap-16">
+        <div className="text-sm font-medium tracking-wider uppercase mb-4">
+          <RevealText><span className="text-gray-400 mr-2">03</span> OUR VISION</RevealText>
+        </div>
+        {visionData.map((item, index) => (
+          <div key={index} className="flex flex-col gap-6">
+            <div className="w-full aspect-[4/5] overflow-hidden">
+              <img 
+                src={item.image} 
+                alt={item.title} 
+                className="w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div>
+              <h2 className="text-4xl font-medium tracking-tight mb-4">
+                {item.title}
+              </h2>
+              <p className="text-lg leading-relaxed">
+                {item.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop Layout (The Pinned Container) */}
+      <div ref={pinContainerRef} className="hidden md:block w-full h-screen relative z-10 overflow-hidden">
         
         {/* The Image Container that shrinks */}
         <div 
@@ -130,6 +158,8 @@ export function StudioVision() {
                 src={item.image} 
                 alt={item.title} 
                 className="w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
               />
               <div 
                 ref={el => { overlaysRef.current[index] = el; }}

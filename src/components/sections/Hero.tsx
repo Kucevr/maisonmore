@@ -204,11 +204,47 @@ export const Hero = () => {
       <div ref={loadingRef} className="absolute inset-0 bg-black text-white z-50 flex flex-col justify-between p-6">
         <div className="flex justify-between text-sm font-medium">
           <div>Design studio<br/>Architecture & interior</div>
-          <div className="text-center">South Yarra<br/>Australia</div>
-          <div className="text-right">Loading<br/>{progress}%</div>
+          <div className="hidden md:block text-center">South Yarra<br/>Australia</div>
+          <div className="hidden md:block text-right">Loading<br/>{progress}%</div>
         </div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center">
-          <h1 className="text-[16vw] font-bold tracking-tighter leading-none uppercase">Maison More</h1>
+          <h1 className="text-[16vw] font-bold tracking-tighter leading-none uppercase">
+            <span className="inline-block overflow-hidden">
+              <span className="inline-block translate-y-full animate-[slideUp_1s_ease-out_forwards]">M</span>
+            </span>
+            <span className="inline-block overflow-hidden">
+              <span className="inline-block translate-y-full animate-[slideUp_1s_ease-out_0.1s_forwards]">A</span>
+            </span>
+            <span className="inline-block overflow-hidden">
+              <span className="inline-block translate-y-full animate-[slideUp_1s_ease-out_0.2s_forwards]">I</span>
+            </span>
+            <span className="inline-block overflow-hidden">
+              <span className="inline-block translate-y-full animate-[slideUp_1s_ease-out_0.3s_forwards]">S</span>
+            </span>
+            <span className="inline-block overflow-hidden">
+              <span className="inline-block translate-y-full animate-[slideUp_1s_ease-out_0.4s_forwards]">O</span>
+            </span>
+            <span className="inline-block overflow-hidden">
+              <span className="inline-block translate-y-full animate-[slideUp_1s_ease-out_0.5s_forwards]">N</span>
+            </span>
+            <span className="inline-block w-[4vw]"></span>
+            <span className="inline-block overflow-hidden">
+              <span className="inline-block translate-y-full animate-[slideUp_1s_ease-out_0.6s_forwards]">M</span>
+            </span>
+            <span className="inline-block overflow-hidden">
+              <span className="inline-block translate-y-full animate-[slideUp_1s_ease-out_0.7s_forwards]">O</span>
+            </span>
+            <span className="inline-block overflow-hidden">
+              <span className="inline-block translate-y-full animate-[slideUp_1s_ease-out_0.8s_forwards]">R</span>
+            </span>
+            <span className="inline-block overflow-hidden">
+              <span className="inline-block translate-y-full animate-[slideUp_1s_ease-out_0.9s_forwards]">E</span>
+            </span>
+          </h1>
+        </div>
+        <div className="md:hidden flex justify-between text-sm font-medium">
+          <div>South Yarra<br/>Australia</div>
+          <div className="text-right">Loading<br/>{progress}%</div>
         </div>
       </div>
 
@@ -216,14 +252,14 @@ export const Hero = () => {
       <div className="absolute inset-0 w-full h-full">
         <h1 
           ref={titleRef}
-          className="absolute top-[5%] left-1/2 -translate-x-1/2 text-[16vw] font-bold tracking-tighter leading-none uppercase text-black z-30 whitespace-nowrap origin-top-left"
+          className="absolute top-[10%] md:top-[5%] left-1/2 -translate-x-1/2 text-[16vw] font-bold tracking-tighter leading-none uppercase text-black z-30 whitespace-nowrap origin-top-left"
         >
           Maison More
         </h1>
 
         <div 
           ref={headerLeftRef}
-          className="absolute top-[22vw] left-6 text-sm font-medium text-black z-30 flex gap-1"
+          className="absolute top-[25%] md:top-[22vw] left-6 text-sm font-medium text-black z-30 flex gap-1"
         >
           <Link to="/work" className="hover:opacity-50 transition-opacity">Work</Link>, 
           <Link to="/process" className="hover:opacity-50 transition-opacity">Process</Link>, 
@@ -232,33 +268,35 @@ export const Hero = () => {
 
         <div 
           ref={headerRightRef}
-          className="absolute top-[22vw] right-6 flex gap-10 text-sm font-medium text-black z-30"
+          className="absolute top-[25%] md:top-[22vw] right-6 flex gap-10 text-sm font-medium text-black z-30"
         >
-          <div className="text-gray-400 opacity-50">09:30 PM South Yarra, AUS</div>
+          <div className="hidden md:block text-gray-400 opacity-50">09:30 PM South Yarra, AUS</div>
           <Link to="/contact" className="hover:opacity-50 transition-opacity">Contact</Link>
         </div>
 
         <div 
           ref={imageRef}
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[40vw] h-[45vh] z-20"
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80vw] md:w-[40vw] h-[50vh] md:h-[45vh] z-20"
         >
           <img 
             src="/assets/hero/main.png" 
             alt="Hero" 
             className="w-full h-full object-cover"
+            loading="eager"
+            decoding="sync"
           />
         </div>
 
         <div 
           ref={scrollDownRef}
-          className="absolute bottom-6 left-6 text-30px text-black z-30"
+          className="absolute bottom-6 left-6 text-sm md:text-30px text-black z-30"
         >
           [Scroll down]
         </div>
 
         <div 
           ref={bottomTextRef}
-          className="absolute bottom-6 right-20 max-w-[250px] text-left text-30px font-medium text-black z-30 leading-tight"
+          className="absolute bottom-6 right-6 md:right-20 max-w-[200px] md:max-w-[250px] text-right md:text-left text-sm md:text-30px font-medium text-black z-30 leading-tight"
         >
           Driven by History,Centered on<br/>
           Context,Embracing Culture

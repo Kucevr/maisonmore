@@ -54,6 +54,8 @@ const ProjectCard = ({ project, imageClassName = "aspect-[4/3]" }: { project: ty
           src={project.images[0]} 
           alt={project.title} 
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          loading="lazy"
+          decoding="async"
         />
       </Link>
 
@@ -71,6 +73,8 @@ const ProjectCard = ({ project, imageClassName = "aspect-[4/3]" }: { project: ty
             src={project.images[(currentImageIndex + 1) % project.images.length]} 
             className="w-full h-full object-cover" 
             alt="" 
+            loading="lazy"
+            decoding="async"
           />
         </div>
       )}
@@ -134,7 +138,7 @@ export const WorkPage = () => {
         onLeave: () => {
           if (buttonRef.current) {
             buttonRef.current.style.position = 'absolute';
-            buttonRef.current.style.bottom = '2rem';
+            buttonRef.current.style.bottom = '4rem'; // Increased spacing from bottom
           }
         }
       });

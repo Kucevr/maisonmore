@@ -111,7 +111,7 @@ export const SelectedWorks = () => {
 
           {/* Image Container */}
           <div className="project-img-container w-[80vw] md:w-[40vw] h-[40vh] md:h-[50vh] relative z-10 overflow-hidden shadow-lg">
-            <img src={project.heroImage} alt={project.title} className="project-img w-full h-full object-cover" />
+            <img src={project.heroImage} alt={project.title} className="project-img w-full h-full object-cover" loading="lazy" decoding="async" />
           </div>
 
           {/* Bottom Info (Category Left, Year Right) */}

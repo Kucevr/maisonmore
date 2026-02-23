@@ -19,9 +19,9 @@ export const ContactPage = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 h-full flex-grow">
         {/* Left */}
         <div className="flex flex-col justify-center">
-          <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-medium tracking-tight leading-[1.05] max-w-2xl">
+          <h1 className="text-4xl md:text-7xl lg:text-[5.5rem] font-medium tracking-tight leading-[1.05] max-w-2xl">
             <RevealText>Based in Melbourne but available for your projects in{' '}</RevealText>
-            <span className="inline-block relative w-[450px] h-[1.2em] align-bottom overflow-hidden">
+            <span className="inline-block relative w-[250px] md:w-[450px] h-[1.2em] align-bottom overflow-hidden">
               <AnimatePresence mode="popLayout">
                 <motion.span
                   key={cityIndex}
@@ -68,7 +68,7 @@ export const ContactPage = () => {
           <div className="w-full">
             <RevealText delay={0.4} className="w-full">
               <div className="w-full aspect-[4/3] relative overflow-hidden">
-                <img src="/assets/kew-woods/hero.jpg" alt="Office" className="w-full h-full object-cover" />
+                <img src="/assets/kew-woods/hero.jpg" alt="Office" className="w-full h-full object-cover" loading="lazy" decoding="async" />
               </div>
             </RevealText>
           </div>
