@@ -21,7 +21,7 @@ export const Header = () => {
         hour: '2-digit',
         minute: '2-digit',
         hour12: true,
-        timeZone: 'Australia/Melbourne'
+        timeZone: 'Europe/Minsk'
       };
       setCurrentTime(now.toLocaleTimeString('en-US', options));
     };
@@ -93,7 +93,7 @@ export const Header = () => {
           </div>
         </div>
         <div className="flex items-center justify-end gap-6 md:gap-10 w-1/2">
-          <div className={`text-sm hidden md:block opacity-50 uppercase`}>{currentTime} South Yarra, AUS</div>
+          <div className={`text-sm hidden md:block opacity-50 uppercase`}>{currentTime} Minsk, BLR</div>
           
           <button 
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}

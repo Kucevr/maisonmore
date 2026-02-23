@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const cities = ['Melbourne', 'Sydney', 'Brisbane', 'Perth', 'Adelaide', 'Hobart', 'Darwin', 'Canberra'];
+const cities = ['Belarus', 'Russia', 'France', 'Italy', 'Germany', 'Poland', 'USA', 'Kazakhstan'];
 
 export const StudioFloatingButton = () => {
   const buttonRef = useRef<HTMLDivElement>(null);

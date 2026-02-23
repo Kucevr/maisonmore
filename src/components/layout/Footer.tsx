@@ -52,11 +52,11 @@ export const Footer = () => {
         <div className="w-full md:w-1/4 flex flex-col gap-6 text-sm">
           <div className="flex gap-4">
             <span className="font-bold"><RevealText>L</RevealText></span>
-            <span><RevealText>59 Garden Street</RevealText><br/><RevealText>South Yarra</RevealText><br/><RevealText>Victoria, Australia 3141</RevealText></span>
+            <span><RevealText>Praspyekt Nyezalyezhnastsi 116</RevealText><br/><RevealText>Minsk</RevealText><br/><RevealText>Belarus 220114</RevealText></span>
           </div>
           <div className="flex gap-4">
             <span className="font-bold"><RevealText>P</RevealText></span>
-            <span><RevealText>+61 3 8672 5999</RevealText></span>
+            <span><RevealText>+375 29 123 45 67</RevealText></span>
           </div>
           <div className="flex gap-4">
             <span className="font-bold"><RevealText>C</RevealText></span>

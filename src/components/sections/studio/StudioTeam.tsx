@@ -60,16 +60,16 @@ export function StudioTeam() {
         {/* Mobile Layout: Names Scrolling with Page, Image Sticky */}
         <div className="lg:hidden grid grid-cols-2 gap-4 relative">
           {/* Names Column */}
-          <div className="flex flex-col gap-[30vh] py-[30vh]">
+          <div className="flex flex-col gap-8 py-[40vh]">
             {teamMembers.map((member, index) => (
               <div 
                 key={index}
                 ref={el => { mobileNamesRef.current[index] = el; }}
-                className="w-full flex justify-start min-h-[100px]"
+                className="w-full flex justify-start py-2"
               >
                 <h4 
-                  className={`text-2xl md:text-3xl font-medium tracking-tight transition-all duration-500 text-left ${
-                    activeIndex === index ? 'text-black scale-110' : 'text-gray-300 scale-100'
+                  className={`text-2xl font-medium tracking-tight transition-all duration-300 text-left ${
+                    activeIndex === index ? 'text-black opacity-100' : 'text-black opacity-20'
                   }`}
                 >
                   {member.name}
@@ -80,25 +80,23 @@ export function StudioTeam() {
 
           {/* Sticky Image Column */}
           <div className="relative">
-            <div className="sticky top-[30%] w-full aspect-[3/4] overflow-hidden shadow-sm">
+            <div className="sticky top-[25%] w-full aspect-[3/4] overflow-hidden">
               {teamMembers.map((member, index) => (
                 <div 
                   key={index}
-                  className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                  className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
                     activeIndex === index ? 'opacity-100 z-10' : 'opacity-0 z-0'
                   }`}
                 >
                   <img 
                     src={member.image} 
                     alt={member.name} 
-                    className="w-full h-[calc(100%-30px)] object-cover"
+                    className="w-full h-[calc(100%-25px)] object-cover"
                     loading="lazy"
                     decoding="async"
                   />
-                  <div className="absolute bottom-0 left-0 right-0 py-1 flex justify-between text-[10px] bg-white border-t border-gray-100 font-medium">
-                    <span>[</span>
-                    <span className="truncate px-1 uppercase">{member.role}</span>
-                    <span>]</span>
+                  <div className="mt-1 text-[11px] font-medium text-black">
+                    {member.role}
                   </div>
                 </div>
               ))}

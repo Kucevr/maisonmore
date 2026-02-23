@@ -138,7 +138,7 @@ export const WorkPage = () => {
         onLeave: () => {
           if (buttonRef.current) {
             buttonRef.current.style.position = 'absolute';
-            buttonRef.current.style.bottom = window.innerWidth < 768 ? '2rem' : '4rem';
+            buttonRef.current.style.bottom = window.innerWidth < 768 ? '4rem' : '8rem';
           }
         }
       });
