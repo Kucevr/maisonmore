@@ -38,11 +38,10 @@ export function StudioTeam() {
           
           ScrollTrigger.create({
             trigger: nameEl,
-            start: "top center",
-            end: "bottom center",
+            start: "top 40%",
+            end: "bottom 40%",
             onEnter: () => setActiveIndex(index),
             onEnterBack: () => setActiveIndex(index),
-            // Add markers for debugging if needed (removed for prod)
           });
         });
       }
@@ -52,7 +51,7 @@ export function StudioTeam() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="px-4 md:px-8 lg:px-12 py-20 relative overflow-visible">
+    <section ref={sectionRef} className="px-4 md:px-8 lg:px-12 py-20 relative overflow-visible bg-white z-10">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 relative overflow-visible">
         {/* Left - Title */}
         <div className="lg:col-span-3 mb-8 lg:mb-0">
@@ -62,18 +61,18 @@ export function StudioTeam() {
         </div>
 
         {/* Mobile Layout: Names Scrolling with Page, Image Sticky */}
-        <div className="lg:hidden grid grid-cols-[1fr_1.3fr] gap-4 relative mt-12 overflow-visible">
+        <div className="lg:hidden grid grid-cols-[1fr_1.3fr] gap-4 relative mt-4 overflow-visible">
           {/* Names Column */}
-          <div className="flex flex-col gap-6 pt-[20vh] pb-[60vh] overflow-visible">
+          <div className="flex flex-col gap-2 pt-4 pb-[30vh] overflow-visible">
             {teamMembers.map((member, index) => (
               <div 
                 key={index}
                 ref={el => { mobileNamesRef.current[index] = el; }}
-                className="w-full flex justify-start py-4"
+                className="w-full flex justify-start py-1"
               >
                 <h4 
-                  className={`text-2xl font-medium tracking-tight transition-all duration-300 text-left ${
-                    activeIndex === index ? 'text-black opacity-100 scale-110 origin-left' : 'text-black opacity-20 scale-100'
+                  className={`text-2xl font-medium tracking-tight transition-all duration-300 transform-gpu text-left ${
+                    activeIndex === index ? 'text-black opacity-100 scale-[1.05] origin-left' : 'text-black opacity-20 scale-100'
                   }`}
                 >
                   {member.name}
@@ -84,7 +83,7 @@ export function StudioTeam() {
 
           {/* Sticky Image Column */}
           <div className="relative">
-            <div className="sticky top-[30vh] w-full aspect-[3/4] overflow-hidden rounded-sm shadow-sm">
+            <div className="sticky top-[20vh] w-full aspect-[3/4] overflow-hidden rounded-sm shadow-sm">
               {teamMembers.map((member, index) => (
                 <div 
                   key={index}

@@ -2,7 +2,7 @@ import { RevealText } from '../../ui/RevealText';
 
 export function StudioQuote() {
   return (
-    <section className="px-4 md:px-8 lg:px-12 py-32 md:py-48 flex items-center justify-center">
+    <section className="px-4 md:px-8 lg:px-12 py-32 md:py-48 flex items-center justify-center bg-white relative z-10">
       <div className="max-w-5xl mx-auto text-center">
         <h2 className="text-4xl md:text-6xl lg:text-7xl font-medium tracking-tight leading-[1.1]">
           <RevealText>

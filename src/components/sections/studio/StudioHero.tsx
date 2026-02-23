@@ -6,31 +6,32 @@ import { RevealText } from '../../ui/RevealText';
 gsap.registerPlugin(ScrollTrigger);
 
 export function StudioHero() {
+  const sectionRef = useRef<HTMLDivElement>(null);
   const titleContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Fade out the title as we scroll down
+      // Fade out the title as we scroll down the section
       gsap.to(titleContainerRef.current, {
         opacity: 0,
         y: -50,
         scrollTrigger: {
-          trigger: titleContainerRef.current,
-          start: "top top",
-          end: "bottom center",
+          trigger: sectionRef.current,
+          start: "10% top",
+          end: "45% top",
           scrub: true,
         }
       });
-    }, titleContainerRef);
+    }, sectionRef);
     return () => ctx.revert();
   }, []);
 
   return (
-    <section className="relative h-[150vh]">
+    <section ref={sectionRef} className="relative h-[220vh]">
       {/* Fixed Title Container */}
       <div 
         ref={titleContainerRef}
-        className="fixed top-0 left-0 h-screen w-full flex flex-col justify-center px-4 md:px-8 lg:px-12 z-20 pointer-events-none"
+        className="fixed top-0 left-0 h-screen w-full flex flex-col justify-center px-4 md:px-8 lg:px-12 z-0 pointer-events-none"
       >
         <div className="flex justify-between items-end w-full">
           <h1 className="text-5xl md:text-6xl lg:text-[4.8rem] font-medium tracking-tight leading-[1.05] max-w-4xl text-black">
