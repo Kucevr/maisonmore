@@ -54,7 +54,7 @@ export const About = () => {
       <div className="flex flex-col md:flex-row gap-10 w-full mt-32 md:pl-[30%]">
         <div className="w-full md:w-1/3 text-sm font-bold leading-tight">
           <RevealText>Architecture</RevealText>
-          <RevealText>& Interior Design</RevealText>
+          <RevealText> & Interior Design</RevealText>
         </div>
         <div className="w-full md:w-1/2 text-16px font-medium leading-tight">
           <RevealText>

@@ -298,8 +298,8 @@ export const Hero = () => {
           ref={bottomTextRef}
           className="absolute bottom-6 right-6 md:right-20 max-w-[200px] md:max-w-[250px] text-right md:text-left text-sm md:text-30px font-medium text-black z-30 leading-tight"
         >
-          Driven by History,Centered on<br/>
-          Context,Embracing Culture
+          Driven by History, Centered on<br/>
+          Context, Embracing Culture
         </div>
       </div>
     </section>
