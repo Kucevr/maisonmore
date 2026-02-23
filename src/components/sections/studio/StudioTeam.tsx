@@ -35,8 +35,8 @@ export function StudioTeam() {
           
           ScrollTrigger.create({
             trigger: nameEl,
-            start: "top center+=50",
-            end: "bottom center-=50",
+            start: "top 160px",
+            end: "bottom 160px",
             onEnter: () => setActiveIndex(index),
             onEnterBack: () => setActiveIndex(index),
           });
@@ -52,15 +52,15 @@ export function StudioTeam() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 relative">
         {/* Left - Title */}
         <div className="lg:col-span-3 mb-8 lg:mb-0">
-          <h3 className="text-sm font-medium tracking-wider uppercase sticky top-32">
+          <h3 className="text-sm font-medium tracking-wider uppercase lg:sticky lg:top-32">
             <RevealText><span className="text-gray-400 mr-2">01</span> MEET THE TEAM</RevealText>
           </h3>
         </div>
 
         {/* Mobile Layout: Names Scrolling with Page, Image Sticky */}
-        <div className="lg:hidden grid grid-cols-[1fr_1.3fr] gap-4 relative">
+        <div className="lg:hidden grid grid-cols-[1fr_1.3fr] gap-4 relative mt-8">
           {/* Names Column */}
-          <div className="flex flex-col gap-4 py-[35vh]">
+          <div className="flex flex-col gap-2 pb-[50vh]">
             {teamMembers.map((member, index) => (
               <div 
                 key={index}
@@ -69,7 +69,7 @@ export function StudioTeam() {
               >
                 <h4 
                   className={`text-xl font-medium tracking-tight transition-all duration-300 text-left ${
-                    activeIndex === index ? 'text-black opacity-100 scale-105' : 'text-black opacity-20 scale-100'
+                    activeIndex === index ? 'text-black opacity-100' : 'text-black opacity-20'
                   }`}
                 >
                   {member.name}
@@ -80,7 +80,7 @@ export function StudioTeam() {
 
           {/* Sticky Image Column */}
           <div className="relative">
-            <div className="sticky top-[28%] w-full aspect-[3/4] overflow-hidden">
+            <div className="sticky top-32 w-full aspect-[3/4] overflow-hidden">
               {teamMembers.map((member, index) => (
                 <div 
                   key={index}
@@ -95,7 +95,7 @@ export function StudioTeam() {
                     loading="lazy"
                     decoding="async"
                   />
-                  <div className="mt-1 text-[11px] font-medium text-black">
+                  <div className="mt-1 text-[13px] font-medium text-black">
                     {member.role}
                   </div>
                 </div>
