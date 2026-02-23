@@ -38,7 +38,7 @@ export const ProjectPage = () => {
         onLeave: () => {
           if (buttonRef.current) {
             buttonRef.current.style.position = 'absolute';
-            buttonRef.current.style.bottom = '2rem';
+            buttonRef.current.style.bottom = '10rem';
           }
         }
       });
@@ -159,7 +159,7 @@ export const ProjectPage = () => {
       <Link 
         ref={buttonRef}
         to="/work" 
-        className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 bg-black text-white px-6 py-3 rounded-full flex items-center gap-3 text-sm font-medium shadow-lg hover:scale-105 transition-transform"
+        className="fixed bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 z-40 bg-black text-white px-6 py-3 rounded-full flex items-center gap-3 text-sm font-medium shadow-lg hover:scale-105 transition-transform"
       >
         <span>&lt;</span> Back to all works
       </Link>

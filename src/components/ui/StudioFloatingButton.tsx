@@ -53,7 +53,7 @@ export const StudioFloatingButton = () => {
         onLeave: () => {
           if (buttonRef.current) {
             buttonRef.current.style.position = 'absolute';
-            buttonRef.current.style.bottom = '2rem';
+            buttonRef.current.style.bottom = '10rem';
           }
         }
       });
@@ -66,7 +66,7 @@ export const StudioFloatingButton = () => {
   return (
     <div 
       ref={buttonRef}
-      className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 opacity-0 translate-y-[50px]"
+      className="fixed bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 z-40 opacity-0 translate-y-[50px]"
     >
       <Link 
         to="/contact"

@@ -138,7 +138,7 @@ export const WorkPage = () => {
         onLeave: () => {
           if (buttonRef.current) {
             buttonRef.current.style.position = 'absolute';
-            buttonRef.current.style.bottom = '4rem'; // Increased spacing from bottom
+            buttonRef.current.style.bottom = '10rem'; // Increased spacing from bottom
           }
         }
       });
@@ -288,7 +288,7 @@ export const WorkPage = () => {
       )}
 
       {/* Floating View Toggle */}
-      <div ref={buttonRef} className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 bg-black text-white px-6 py-3 rounded-full flex items-center gap-6 text-sm font-medium shadow-lg">
+      <div ref={buttonRef} className="fixed bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 z-40 bg-black text-white px-6 py-3 rounded-full flex items-center gap-6 text-sm font-medium shadow-lg">
         <button onClick={() => setViewMode('grid')} className={`flex items-center gap-2 transition-opacity ${viewMode === 'grid' ? 'opacity-100' : 'opacity-50 hover:opacity-100'}`}>
           <span className="grid grid-cols-2 gap-[2px]">
             <div className="w-1.5 h-1.5 bg-white"></div>
