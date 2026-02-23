@@ -23,7 +23,7 @@ const teamMembers = [
 ];
 
 export function StudioTeam() {
-  const [activeIndex, setActiveIndex] = useState(2); // Default to Lisa Kalker as in screenshot
+  const [activeIndex, setActiveIndex] = useState(0); 
   const sectionRef = useRef<HTMLElement>(null);
   const mobileNamesRef = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -35,8 +35,8 @@ export function StudioTeam() {
           
           ScrollTrigger.create({
             trigger: nameEl,
-            start: "top center+=100",
-            end: "bottom center-=100",
+            start: "top center+=50",
+            end: "bottom center-=50",
             onEnter: () => setActiveIndex(index),
             onEnterBack: () => setActiveIndex(index),
           });
@@ -58,18 +58,18 @@ export function StudioTeam() {
         </div>
 
         {/* Mobile Layout: Names Scrolling with Page, Image Sticky */}
-        <div className="lg:hidden grid grid-cols-2 gap-4 relative">
+        <div className="lg:hidden grid grid-cols-[1fr_1.3fr] gap-4 relative">
           {/* Names Column */}
-          <div className="flex flex-col gap-8 py-[40vh]">
+          <div className="flex flex-col gap-4 py-[35vh]">
             {teamMembers.map((member, index) => (
               <div 
                 key={index}
                 ref={el => { mobileNamesRef.current[index] = el; }}
-                className="w-full flex justify-start py-2"
+                className="w-full flex justify-start py-1"
               >
                 <h4 
-                  className={`text-2xl font-medium tracking-tight transition-all duration-300 text-left ${
-                    activeIndex === index ? 'text-black opacity-100' : 'text-black opacity-20'
+                  className={`text-xl font-medium tracking-tight transition-all duration-300 text-left ${
+                    activeIndex === index ? 'text-black opacity-100 scale-105' : 'text-black opacity-20 scale-100'
                   }`}
                 >
                   {member.name}
@@ -80,7 +80,7 @@ export function StudioTeam() {
 
           {/* Sticky Image Column */}
           <div className="relative">
-            <div className="sticky top-[25%] w-full aspect-[3/4] overflow-hidden">
+            <div className="sticky top-[28%] w-full aspect-[3/4] overflow-hidden">
               {teamMembers.map((member, index) => (
                 <div 
                   key={index}
