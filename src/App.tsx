@@ -1,4 +1,4 @@
-import { useEffect, Suspense, lazy } from 'react';
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -13,15 +13,13 @@ import { Vision } from './components/sections/Vision';
 import { Method } from './components/sections/Method';
 import { Footer } from './components/layout/Footer';
 import { FloatingButton } from './components/ui/FloatingButton';
+import { WorkPage } from './pages/WorkPage';
+import { ProjectPage } from './pages/ProjectPage';
+import { ProcessPage } from './pages/ProcessPage';
+import { StudioPage } from './pages/StudioPage';
+import { ContactPage } from './pages/ContactPage';
 import { ScrollToTop } from './components/layout/ScrollToTop';
 import { PageTransition } from './components/layout/PageTransition';
-
-// Lazy load pages
-const WorkPage = lazy(() => import('./pages/WorkPage').then(m => ({ default: m.WorkPage })));
-const ProjectPage = lazy(() => import('./pages/ProjectPage').then(m => ({ default: m.ProjectPage })));
-const ProcessPage = lazy(() => import('./pages/ProcessPage').then(m => ({ default: m.ProcessPage })));
-const StudioPage = lazy(() => import('./pages/StudioPage').then(m => ({ default: m.StudioPage })));
-const ContactPage = lazy(() => import('./pages/ContactPage').then(m => ({ default: m.ContactPage })));
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -48,11 +46,11 @@ function AnimatedRoutes() {
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<PageTransition><HomePage /></PageTransition>} />
-        <Route path="/work" element={<PageTransition><Suspense fallback={<div />}><WorkPage /></Suspense></PageTransition>} />
-        <Route path="/work/:slug" element={<PageTransition><Suspense fallback={<div />}><ProjectPage /></Suspense></PageTransition>} />
-        <Route path="/process" element={<PageTransition><Suspense fallback={<div />}><ProcessPage /></Suspense></PageTransition>} />
-        <Route path="/studio" element={<PageTransition><Suspense fallback={<div />}><StudioPage /></Suspense></PageTransition>} />
-        <Route path="/contact" element={<PageTransition><Suspense fallback={<div />}><ContactPage /></Suspense></PageTransition>} />
+        <Route path="/work" element={<PageTransition><WorkPage /></PageTransition>} />
+        <Route path="/work/:slug" element={<PageTransition><ProjectPage /></PageTransition>} />
+        <Route path="/process" element={<PageTransition><ProcessPage /></PageTransition>} />
+        <Route path="/studio" element={<PageTransition><StudioPage /></PageTransition>} />
+        <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
       </Routes>
     </AnimatePresence>
   );
