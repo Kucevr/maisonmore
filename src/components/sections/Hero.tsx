@@ -16,6 +16,7 @@ export const Hero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isHeroDone, setIsHeroDone] = useState(false);
+  const [currentTime, setCurrentTime] = useState('');
 
   // Dedicated Effect for Scroll Locking
   useEffect(() => {
@@ -48,6 +49,24 @@ export const Hero = () => {
       }
     };
   }, [isHeroDone]);
+
+  // Update time every minute (Minsk timezone)
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      const options: Intl.DateTimeFormatOptions = {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true,
+        timeZone: 'Europe/Minsk'
+      };
+      setCurrentTime(now.toLocaleTimeString('en-US', options));
+    };
+
+    updateTime();
+    const timer = setInterval(updateTime, 1000 * 60);
+    return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     // Check if it's the first time visiting in this session
@@ -261,17 +280,17 @@ export const Hero = () => {
           ref={headerLeftRef}
           className="absolute top-[25%] md:top-[22vw] left-6 text-sm font-medium text-black z-30 flex gap-1"
         >
-          <Link to="/work" className="hover:opacity-50 transition-opacity">Work</Link>, 
-          <Link to="/process" className="hover:opacity-50 transition-opacity">Process</Link>, 
-          <Link to="/studio" className="hover:opacity-50 transition-opacity">Studio</Link>
+          <Link to="/work" className="hover:opacity-70 hover:scale-105 transition-all duration-150">Work</Link>, 
+          <Link to="/process" className="hover:opacity-70 hover:scale-105 transition-all duration-150">Process</Link>, 
+          <Link to="/studio" className="hover:opacity-70 hover:scale-105 transition-all duration-150">Studio</Link>
         </div>
 
         <div 
           ref={headerRightRef}
           className="absolute top-[25%] md:top-[22vw] right-6 flex gap-10 text-sm font-medium text-black z-30"
         >
-          <div className="hidden md:block text-gray-400 opacity-50">09:30 PM South Yarra, AUS</div>
-          <Link to="/contact" className="hover:opacity-50 transition-opacity">Contact</Link>
+          <div className="hidden md:block text-gray-400 opacity-50">{currentTime} Minsk, BLR</div>
+          <Link to="/contact" className="hover:opacity-70 hover:scale-105 transition-all duration-150">Contact</Link>
         </div>
 
         <div 
