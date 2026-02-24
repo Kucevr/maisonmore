@@ -14,4 +14,21 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor': ['react', 'react-dom', 'react-router-dom'],
+          'gsap': ['gsap'],
+          'framer': ['framer-motion'],
+          'utils': ['clsx', 'tailwind-merge'],
+        }
+      }
+    },
+    chunkSizeWarningLimit: 1000,
+    reportCompressedSize: false,
+  },
+  server: {
+    preTransformRequests: true,
+  }
 })

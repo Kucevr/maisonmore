@@ -1,15 +1,17 @@
 import { useEffect, useRef, Children, isValidElement } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useAnimationConfig } from '../../hooks/usePerformance';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const RevealText = ({ children, className = "", delay = 0 }: { children: React.ReactNode, className?: string, delay?: number }) => {
   const containerRef = useRef<HTMLSpanElement>(null);
+  const { shouldAnimate, duration, stagger } = useAnimationConfig();
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container) return;
+    if (!container || !shouldAnimate) return;
 
     const ctx = gsap.context(() => {
       const words = container.querySelectorAll('.reveal-word');
@@ -20,8 +22,8 @@ export const RevealText = ({ children, className = "", delay = 0 }: { children: 
           {
             y: "0%",
             opacity: 1,
-            duration: 0.8,
-            stagger: 0.015,
+            duration: duration,
+            stagger: stagger,
             delay: delay,
             ease: "power3.out",
             scrollTrigger: {
@@ -39,7 +41,7 @@ export const RevealText = ({ children, className = "", delay = 0 }: { children: 
             {
               y: 0,
               opacity: 1,
-              duration: 0.8,
+              duration: duration,
               delay: delay,
               ease: "power3.out",
               scrollTrigger: {
@@ -54,7 +56,7 @@ export const RevealText = ({ children, className = "", delay = 0 }: { children: 
     }, containerRef);
 
     return () => ctx.revert();
-  }, [delay]);
+  }, [delay, shouldAnimate, duration, stagger]);
 
   // Helper to check if children is just text
   const isTextOnly = (kids: React.ReactNode): boolean => {

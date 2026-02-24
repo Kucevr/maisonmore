@@ -76,7 +76,7 @@ export const Header = () => {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 w-full z-50 px-6 py-4 md:py-6 flex justify-between items-center transition-opacity duration-500 ${
+        className={`fixed top-0 left-0 w-full z-50 px-6 py-4 md:py-6 flex justify-between items-center transition-opacity duration-300 ${
           isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
         } ${isContactPage && !isMobileMenuOpen ? 'text-black' : (isMobileMenuOpen ? 'text-white' : 'mix-blend-difference text-white')}`}
       >
@@ -85,11 +85,11 @@ export const Header = () => {
             Maison More
           </Link>
           <div className="text-16px font-medium hidden md:flex gap-1">
-            <Link to="/work" className={`transition-opacity duration-75 ${isWorkPage ? 'opacity-100 font-bold' : 'opacity-50 hover:opacity-100'}`}>Work</Link>
+            <Link to="/work" className={`transition-opacity duration-200 ${isWorkPage ? 'opacity-100 font-bold' : 'opacity-50 hover:opacity-100'}`}>Work</Link>
             <span className="opacity-50">,</span>
-            <Link to="/process" className={`transition-opacity duration-75 ${isProcessPage ? 'opacity-100 font-bold' : 'opacity-50 hover:opacity-100'}`}>Process</Link>
+            <Link to="/process" className={`transition-opacity duration-200 ${isProcessPage ? 'opacity-100 font-bold' : 'opacity-50 hover:opacity-100'}`}>Process</Link>
             <span className="opacity-50">,</span>
-            <Link to="/studio" className={`transition-opacity duration-75 ${isStudioPage ? 'opacity-100 font-bold' : 'opacity-50 hover:opacity-100'}`}>Studio</Link>
+            <Link to="/studio" className={`transition-opacity duration-200 ${isStudioPage ? 'opacity-100 font-bold' : 'opacity-50 hover:opacity-100'}`}>Studio</Link>
           </div>
         </div>
         <div className="flex items-center justify-end gap-6 md:gap-10 w-1/2">
@@ -102,7 +102,7 @@ export const Header = () => {
             {isMobileMenuOpen ? 'Close' : 'Menu'}
           </button>
 
-          <Link to="/contact" className={`text-16px font-medium transition-opacity duration-75 hidden md:block ${isContactPage ? 'font-bold' : 'hover:opacity-50'}`}>Contact</Link>
+          <Link to="/contact" className={`text-16px font-medium transition-opacity duration-200 hidden md:block ${isContactPage ? 'font-bold' : 'hover:opacity-50'}`}>Contact</Link>
         </div>
       </header>
 
@@ -122,7 +122,7 @@ export const Header = () => {
               <Link to="/contact" className={isContactPage ? 'opacity-100' : 'opacity-50'}>Contact</Link>
             </nav>
             <div className="absolute bottom-10 left-6 text-sm opacity-50 uppercase">
-              {currentTime} South Yarra, AUS
+              {currentTime} Minsk, BLR
             </div>
           </motion.div>
         )}

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -13,13 +13,15 @@ import { Vision } from './components/sections/Vision';
 import { Method } from './components/sections/Method';
 import { Footer } from './components/layout/Footer';
 import { FloatingButton } from './components/ui/FloatingButton';
-import { WorkPage } from './pages/WorkPage';
-import { ProjectPage } from './pages/ProjectPage';
-import { ProcessPage } from './pages/ProcessPage';
-import { StudioPage } from './pages/StudioPage';
-import { ContactPage } from './pages/ContactPage';
 import { ScrollToTop } from './components/layout/ScrollToTop';
 import { PageTransition } from './components/layout/PageTransition';
+
+// Lazy load pages
+const WorkPage = lazy(() => import('./pages/WorkPage').then(m => ({ default: m.WorkPage })));
+const ProjectPage = lazy(() => import('./pages/ProjectPage').then(m => ({ default: m.ProjectPage })));
+const ProcessPage = lazy(() => import('./pages/ProcessPage').then(m => ({ default: m.ProcessPage })));
+const StudioPage = lazy(() => import('./pages/StudioPage').then(m => ({ default: m.StudioPage })));
+const ContactPage = lazy(() => import('./pages/ContactPage').then(m => ({ default: m.ContactPage })));
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -46,11 +48,11 @@ function AnimatedRoutes() {
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<PageTransition><HomePage /></PageTransition>} />
-        <Route path="/work" element={<PageTransition><WorkPage /></PageTransition>} />
-        <Route path="/work/:slug" element={<PageTransition><ProjectPage /></PageTransition>} />
-        <Route path="/process" element={<PageTransition><ProcessPage /></PageTransition>} />
-        <Route path="/studio" element={<PageTransition><StudioPage /></PageTransition>} />
-        <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
+        <Route path="/work" element={<PageTransition><Suspense fallback={<div />}><WorkPage /></Suspense></PageTransition>} />
+        <Route path="/work/:slug" element={<PageTransition><Suspense fallback={<div />}><ProjectPage /></Suspense></PageTransition>} />
+        <Route path="/process" element={<PageTransition><Suspense fallback={<div />}><ProcessPage /></Suspense></PageTransition>} />
+        <Route path="/studio" element={<PageTransition><Suspense fallback={<div />}><StudioPage /></Suspense></PageTransition>} />
+        <Route path="/contact" element={<PageTransition><Suspense fallback={<div />}><ContactPage /></Suspense></PageTransition>} />
       </Routes>
     </AnimatePresence>
   );
@@ -76,18 +78,21 @@ function App() {
 
     gsap.ticker.lagSmoothing(0);
 
-    // Refresh ScrollTrigger when images load to ensure correct footer position
-    const handleImageLoad = () => ScrollTrigger.refresh();
-    window.addEventListener('load', handleImageLoad);
+    // Refresh ScrollTrigger when page load completes
+    const handleLoad = () => {
+      ScrollTrigger.refresh();
+    };
     
-    // Also periodic refresh for dynamic content
-    const interval = setInterval(() => ScrollTrigger.refresh(), 2000);
+    if (document.readyState === 'complete') {
+      handleLoad();
+    } else {
+      window.addEventListener('load', handleLoad);
+    }
 
     return () => {
       lenis.destroy();
       ScrollTrigger.getAll().forEach(t => t.kill());
-      window.removeEventListener('load', handleImageLoad);
-      clearInterval(interval);
+      window.removeEventListener('load', handleLoad);
     };
   }, []);
 
