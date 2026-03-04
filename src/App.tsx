@@ -17,6 +17,7 @@ import { WorkPage } from './pages/WorkPage';
 import { ProjectPage } from './pages/ProjectPage';
 import { ProcessPage } from './pages/ProcessPage';
 import { StudioPage } from './pages/StudioPage';
+import { JobPage } from './pages/JobPage';
 import { ContactPage } from './pages/ContactPage';
 import { ScrollToTop } from './components/layout/ScrollToTop';
 import { PageTransition } from './components/layout/PageTransition';
@@ -50,6 +51,7 @@ function AnimatedRoutes() {
         <Route path="/work/:slug" element={<PageTransition><ProjectPage /></PageTransition>} />
         <Route path="/process" element={<PageTransition><ProcessPage /></PageTransition>} />
         <Route path="/studio" element={<PageTransition><StudioPage /></PageTransition>} />
+        <Route path="/studio/jobs/:slug" element={<PageTransition><JobPage /></PageTransition>} />
         <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
       </Routes>
     </AnimatePresence>
@@ -62,8 +64,9 @@ function App() {
 
   useEffect(() => {
     const lenis = new Lenis({
-      lerp: 0.1,
+      lerp: 0.08,
       smoothWheel: true,
+      wheelMultiplier: 1,
     });
 
     (window as any).lenis = lenis;
@@ -86,11 +89,22 @@ function App() {
     } else {
       window.addEventListener('load', handleLoad);
     }
+    
+    // Refresh ScrollTrigger on route changes
+    const handlePopState = () => {
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+        lenis.scrollTo(0, { immediate: true });
+      }, 100);
+    };
+    
+    window.addEventListener('popstate', handlePopState);
 
     return () => {
       lenis.destroy();
       ScrollTrigger.getAll().forEach(t => t.kill());
       window.removeEventListener('load', handleLoad);
+      window.removeEventListener('popstate', handlePopState);
     };
   }, []);
 

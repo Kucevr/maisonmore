@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { Link } from 'react-router-dom';
+import { OptimizedImage } from '../ui/OptimizedImage';
 
 export const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -78,8 +79,8 @@ export const Hero = () => {
       return;
     }
 
-    // Dynamic Loading Animation (0 to 100%)
-    const duration = 2000; // 2 seconds
+    // Dynamic Loading Animation (3 seconds for better visibility)
+    const duration =2000; // 3 seconds instead of 2
     const startTime = performance.now();
 
     const animateLoader = (time: number) => {
@@ -96,11 +97,11 @@ export const Hero = () => {
         requestAnimationFrame(animateLoader);
       } else {
         sessionStorage.setItem('hasVisited', 'true');
-        // When 100% is reached, slide the loading screen up
+        // When 100% is reached, slide the loading screen up after 1.5 second delay
         gsap.to(loadingRef.current, {
           yPercent: -100,
-          duration: 1.2,
-          delay: 0.2,
+          duration: 1,
+          delay: 1.5,
           ease: "power3.inOut",
           onComplete: () => {
             if (loadingRef.current) loadingRef.current.style.display = 'none';
@@ -152,9 +153,9 @@ export const Hero = () => {
             window.dispatchEvent(new Event('heroDone')); // Notify global Header
             
             // Hide the fake nav elements when animation is done
-            gsap.to([headerLeftRef.current, headerRightRef.current], {
+            gsap.to([headerLeftRef.current, headerRightRef.current, titleRef.current], {
               opacity: 0,
-              duration: 0.3
+              duration: 0
             });
           }
         });
@@ -174,7 +175,6 @@ export const Hero = () => {
           left: window.innerWidth < 768 ? "24px" : "24px", 
           fontSize: window.innerWidth < 768 ? "1.25rem" : "1.5rem", // Match header text-xl / text-2xl
           xPercent: 0,
-          color: "white",
           duration: 1.5,
           ease: "power3.inOut"
         }, 0);
@@ -183,7 +183,6 @@ export const Hero = () => {
         tl.to(headerLeftRef.current, {
           top: "28px",
           left: "250px",
-          color: "white",
           opacity: window.innerWidth < 768 ? 0 : 1,
           duration: 1.5,
           ease: "power3.inOut"
@@ -192,12 +191,11 @@ export const Hero = () => {
         // Header Right moves up
         tl.to(headerRightRef.current, {
           top: "28px",
-          color: "white",
           duration: 1.5,
           ease: "power3.inOut"
         }, 0);
 
-        // Bottom texts turn white
+        // Bottom texts disappear or something? actually wait, they turn white, maybe we can keep them text-white mix-blend-difference or let them stay color: white
         tl.to([bottomTextRef.current, scrollDownRef.current], {
           color: "white",
           duration: 1.5,
@@ -227,7 +225,7 @@ export const Hero = () => {
           <div className="hidden md:block text-right">Loading<br/>{progress}%</div>
         </div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center">
-          <h1 className="text-[16vw] font-bold tracking-tighter leading-none uppercase">
+          <h1 className="text-[14vw] md:text-[16vw] font-bold tracking-tighter leading-none uppercase">
             <span className="inline-block overflow-hidden">
               <span className="inline-block translate-y-full animate-[slideUp_1s_ease-out_forwards]">M</span>
             </span>
@@ -246,7 +244,7 @@ export const Hero = () => {
             <span className="inline-block overflow-hidden">
               <span className="inline-block translate-y-full animate-[slideUp_1s_ease-out_0.5s_forwards]">N</span>
             </span>
-            <span className="inline-block w-[4vw]"></span>
+            <span className="inline-block w-[2vw] md:w-[4vw]"></span>
             <span className="inline-block overflow-hidden">
               <span className="inline-block translate-y-full animate-[slideUp_1s_ease-out_0.6s_forwards]">M</span>
             </span>
@@ -268,17 +266,17 @@ export const Hero = () => {
       </div>
 
       {/* Main Content (Initial state is Photo 2, scrolled state is Photo 3) */}
-      <div className="absolute inset-0 w-full h-full">
+      <div className="absolute inset-0 w-full h-full text-white">
         <h1 
           ref={titleRef}
-          className="absolute top-[10%] md:top-[5%] left-1/2 -translate-x-1/2 text-[16vw] font-bold tracking-tighter leading-none uppercase text-black z-30 whitespace-nowrap origin-top-left"
+          className="absolute top-[10%] md:top-[5%] left-1/2 -translate-x-1/2 text-[16vw] font-bold tracking-tighter leading-none uppercase mix-blend-difference z-30 whitespace-nowrap origin-top-left"
         >
           Maison More
         </h1>
 
         <div 
           ref={headerLeftRef}
-          className="absolute top-[25%] md:top-[22vw] left-6 text-sm font-medium text-black z-30 flex gap-1"
+          className="absolute top-[25%] md:top-[22vw] left-6 text-sm font-medium mix-blend-difference z-30 flex gap-1"
         >
           <Link to="/work" className="hover:opacity-70 hover:scale-105 transition-all duration-150">Work</Link>, 
           <Link to="/process" className="hover:opacity-70 hover:scale-105 transition-all duration-150">Process</Link>, 
@@ -287,9 +285,9 @@ export const Hero = () => {
 
         <div 
           ref={headerRightRef}
-          className="absolute top-[25%] md:top-[22vw] right-6 flex gap-10 text-sm font-medium text-black z-30"
+          className="absolute top-[25%] md:top-[22vw] right-6 flex gap-10 text-sm font-medium mix-blend-difference z-30"
         >
-          <div className="hidden md:block text-gray-400 opacity-50">{currentTime} Minsk, BLR</div>
+          <div className="hidden md:block opacity-50">{currentTime} Minsk, BLR</div>
           <Link to="/contact" className="hover:opacity-70 hover:scale-105 transition-all duration-150">Contact</Link>
         </div>
 
@@ -297,7 +295,7 @@ export const Hero = () => {
           ref={imageRef}
           className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80vw] md:w-[40vw] h-[50vh] md:h-[45vh] z-20"
         >
-          <img 
+          <OptimizedImage 
             src="/assets/hero/main.png" 
             alt="Hero" 
             className="w-full h-full object-cover"

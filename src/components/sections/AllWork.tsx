@@ -2,13 +2,13 @@ import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { OptimizedImage } from '../ui/OptimizedImage';
 import { projectsData } from '../../data/projects';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const AllWork = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const imagesRef = useRef<(HTMLImageElement | null)[]>([]);
 
   // Select a mix of project photos for the collage
   const collageImages = [
@@ -31,21 +31,28 @@ export const AllWork = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Parallax for all images
-      imagesRef.current.forEach((img, i) => {
-        if (!img) return;
-        const speed = 0.3 + (i % 5) * 0.15; // Adjusted for mobile and desktop
-        gsap.to(img, {
-          y: -window.innerHeight * speed,
-          ease: 'power1.out',
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1.5,
-          }
+      const isMobile = window.innerWidth < 768;
+      const imgElements = containerRef.current?.querySelectorAll('.collage-item');
+      
+      if (imgElements) {
+        imgElements.forEach((el, i) => {
+          // Adjust speed for mobile to be more subtle but still visible
+          const speed = isMobile 
+            ? 0.15 + (i % 3) * 0.1 
+            : 0.3 + (i % 5) * 0.15;
+            
+          gsap.to(el, {
+            y: -window.innerHeight * speed,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: isMobile ? 0.8 : 1.5,
+            }
+          });
         });
-      });
+      }
     }, containerRef);
     return () => ctx.revert();
   }, []);
@@ -66,7 +73,7 @@ export const AllWork = () => {
         </Link>
       </div>
 
-      {/* Floating Images Collage - Mobile simplified, Desktop complex */}
+      {/* Floating Images Collage - Mobile optimized "flying" layout, Desktop complex */}
       {collageImages.map((src, i) => {
         const desktopSettings = [
           { pos: "top-[10vh] left-[5%] w-[20vw] h-[30vh]", opacity: 0.9, scale: 0.8 },
@@ -86,38 +93,45 @@ export const AllWork = () => {
           { pos: "top-[210vh] left-[25%] w-[22vw] h-[32vh]", opacity: 0.8, scale: 0.9 },
         ];
 
-        // On mobile, we use a simple grid-like absolute positioning to prevent chaotic overlap
+        // Flying effect for mobile (staggered and varied)
         const mobileSettings = [
-          { pos: "top-[10vh] left-[5%] w-[40vw] h-[25vh]", opacity: 0.8, scale: 1 },
-          { pos: "top-[35vh] right-[5%] w-[45vw] h-[30vh]", opacity: 1, scale: 1 },
-          { pos: "top-[65vh] left-[10%] w-[50vw] h-[35vh]", opacity: 0.9, scale: 1 },
-          { pos: "top-[95vh] right-[10%] w-[40vw] h-[25vh]", opacity: 1, scale: 1 },
-          { pos: "top-[125vh] left-[5%] w-[45vw] h-[30vh]", opacity: 0.8, scale: 1 },
-          { pos: "top-[155vh] right-[5%] w-[50vw] h-[35vh]", opacity: 0.9, scale: 1 },
-          { pos: "top-[185vh] left-[10%] w-[40vw] h-[25vh]", opacity: 1, scale: 1 },
-          { pos: "top-[215vh] right-[10%] w-[45vw] h-[30vh]", opacity: 0.9, scale: 1 },
+          { pos: "top-[15vh] left-[8%] w-[40vw] h-[25vh]", opacity: 1, scale: 0.9 },
+          { pos: "top-[30vh] right-[5%] w-[40vw] h-[28vh]", opacity: 0.9, scale: 1.05 },
+          { pos: "top-[55vh] left-[5%] w-[42vw] h-[22vh]", opacity: 0.8, scale: 0.85 },
+          { pos: "top-[80vh] right-[5%] w-[50vw] h-[28vh]", opacity: 1, scale: 1.1 },
+          { pos: "top-[105vh] left-[10%] w-[45vw] h-[24vh]", opacity: 0.9, scale: 0.95 },
+          { pos: "top-[130vh] right-[8%] w-[46vw] h-[26vh]", opacity: 0.95, scale: 1 },
+          { pos: "top-[150vh] left-[10%] w-[44vw] h-[25vh]", opacity: 1, scale: 0.9 },
+          { pos: "top-[175vh] right-[10%] w-[45vw] h-[24vh]", opacity: 0.85, scale: 1 },
         ];
         
         const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+        
+        // Show up to 8 images on mobile for a rich "flying" effect
+        if (isMobile && i >= 8) return null;
+        
         const settings = isMobile ? mobileSettings : desktopSettings;
         const setting = settings[i % settings.length];
         
         if (!setting) return null;
 
         return (
-          <img 
+          <div
             key={i}
-            ref={el => { if (el) imagesRef.current[i] = el; }} 
-            src={src} 
-            className={`absolute ${setting.pos} object-cover grayscale-[20%] will-change-transform rounded-sm shadow-lg`} 
+            className={`absolute collage-item ${setting.pos}`}
             style={{ 
               opacity: setting.opacity,
               transform: `scale(${setting.scale})`
             }}
-            alt={`Work ${i + 1}`} 
-            loading="lazy"
-            decoding="async"
-          />
+          >
+            <OptimizedImage
+              src={src} 
+              className="w-full h-full object-cover grayscale-[20%] will-change-transform rounded-sm shadow-lg"
+              alt={`Work ${i + 1}`} 
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
         );
       })}
     </section>

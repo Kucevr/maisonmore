@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#000000"/>
+  <g fill="none" stroke="#FFFFFF" stroke-width="14" stroke-linejoin="miter" stroke-miterlimit="10">
+    <path d="M120 350 L120 162 L185 252 L250 162 L250 350" />
+    <path d="M262 350 L262 162 L327 252 L392 162 L392 350" />
+  </g>
+  <text x="256" y="440" dominant-baseline="middle" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-weight="400" font-size="28" fill="#FFFFFF" letter-spacing="14">MAISON MORE</text>
+</svg>

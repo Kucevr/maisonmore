@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import { RevealText } from '../ui/RevealText';
+import { OptimizedImage } from '../ui/OptimizedImage';
 
 const methods = [
-  { title: "Schematic Design", num: "01", img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=800&auto=format&fit=crop" },
-  { title: "Development & Town Planning Applications", num: "02", img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=800&auto=format&fit=crop" },
-  { title: "Design Development", num: "03", img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop" },
-  { title: "Marketing", num: "04", img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=800&auto=format&fit=crop" },
-  { title: "Interior Design", num: "05", img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=800&auto=format&fit=crop" },
-  { title: "Construction Documentation", num: "06", img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop" },
-  { title: "Contract Administration", num: "07", img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=800&auto=format&fit=crop" }
+  { title: "Schematic Design", num: "01", img: "/assets/process/schematic.jpeg" },
+  { title: "Development & Town Planning Applications", num: "02", img: "/assets/process/development.jpeg" },
+  { title: "Design Development", num: "03", img: "/assets/process/design-dev.jpeg" },
+  { title: "Marketing", num: "04", img: "/assets/process/marketing.jpeg" },
+  { title: "Interior Design", num: "05", img: "/assets/process/interior.jpeg" },
+  { title: "Construction Documentation", num: "06", img: "/assets/process/documentation.jpeg" },
+  { title: "Contract Administration", num: "07", img: "/assets/process/administration.jpeg" }
 ];
 
 export const Method = () => {
@@ -42,7 +43,13 @@ export const Method = () => {
           ))}
         </div>
         <div className="w-full md:w-1/3 md:pl-10">
-          <img src={methods[hovered].img} className="w-full aspect-[4/5] object-cover transition-all duration-500" alt="Method" loading="lazy" decoding="async" />
+          <OptimizedImage 
+            src={methods[hovered].img} 
+            className="w-full aspect-[4/5] object-cover transition-all duration-500" 
+            alt="Method" 
+            loading="lazy" 
+            decoding="async" 
+          />
         </div>
       </div>
     </section>

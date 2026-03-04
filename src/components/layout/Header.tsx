@@ -76,12 +76,16 @@ export const Header = () => {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 w-full z-50 px-6 py-4 md:py-6 flex justify-between items-center transition-opacity duration-300 ${
+        className={`fixed top-0 left-0 w-full z-50 px-6 py-4 md:py-6 flex justify-between items-center ${
+          isHomePage ? 'transition-none' : 'transition-opacity duration-300'
+        } ${
           isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
         } ${isContactPage && !isMobileMenuOpen ? 'text-black' : (isMobileMenuOpen ? 'text-white' : 'mix-blend-difference text-white')}`}
       >
         <div className="flex items-center gap-10 w-1/2">
-          <Link to="/" className={`font-brand text-xl md:text-2xl font-bold tracking-tighter uppercase transition-opacity duration-300 ${isLogoVisible ? 'opacity-100' : 'opacity-0'}`}>
+          <Link to="/" className={`font-brand text-xl md:text-2xl font-bold tracking-tighter uppercase ${
+            isHomePage ? 'transition-none' : 'transition-opacity duration-300'
+          } ${isLogoVisible ? 'opacity-100' : 'opacity-0'}`}>
             Maison More
           </Link>
           <div className="text-16px font-medium hidden md:flex gap-1">
@@ -113,7 +117,7 @@ export const Header = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="fixed inset-0 z-[45] bg-black text-white flex flex-col justify-center px-6"
+            className="fixed inset-0 z-[100] bg-black text-white flex flex-col justify-center px-6"
           >
             <nav className="flex flex-col gap-8 text-4xl font-bold uppercase tracking-tighter">
               <Link to="/work" className={isWorkPage ? 'opacity-100' : 'opacity-50'}>Work</Link>

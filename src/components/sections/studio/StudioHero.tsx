@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { RevealText } from '../../ui/RevealText';
+import { OptimizedImage } from '../../ui/OptimizedImage';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,7 +20,8 @@ export function StudioHero() {
           trigger: sectionRef.current,
           start: "10% top",
           end: "45% top",
-          scrub: true,
+          scrub: 0.6,
+          invalidateOnRefresh: true,
         }
       });
     }, sectionRef);
@@ -35,7 +37,7 @@ export function StudioHero() {
       >
         <div className="flex justify-between items-end w-full">
           <h1 className="text-5xl md:text-6xl lg:text-[4.8rem] font-medium tracking-tight leading-[1.05] max-w-4xl text-black">
-            <RevealText>Maison More is a Melbourne</RevealText><br />
+            <RevealText>Maison More is a Belarus</RevealText><br />
             <RevealText>based architecture & interior</RevealText><br />
             <RevealText>design studio.</RevealText>
           </h1>
@@ -66,7 +68,7 @@ export function StudioHero() {
 
           {/* Right side - Image */}
           <div className="lg:col-span-7 h-[120vh] w-full relative">
-            <img 
+            <OptimizedImage 
               src="/assets/studio/hero.jpg" 
               alt="Studio Interior" 
               className="w-full h-full object-cover"

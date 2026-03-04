@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { RevealText } from '../components/ui/RevealText';
+import { OptimizedImage } from '../components/ui/OptimizedImage';
 
 const cities = ['Belarus', 'Russia', 'France', 'Italy', 'Germany', 'Poland', 'USA', 'Kazakhstan'];
 
@@ -68,7 +69,7 @@ export const ContactPage = () => {
           <div className="w-full">
             <RevealText delay={0.4} className="w-full">
               <div className="w-full aspect-[4/3] relative overflow-hidden">
-                <img src="/assets/kew-woods/hero.jpg" alt="Office" className="w-full h-full object-cover" loading="lazy" decoding="async" />
+                <OptimizedImage src="/assets/kew-woods/hero.jpg" alt="Office" className="w-full h-full object-cover" loading="lazy" decoding="async" />
               </div>
             </RevealText>
           </div>

@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { RevealText } from '../../ui/RevealText';
+import { OptimizedImage } from '../../ui/OptimizedImage';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -9,17 +10,17 @@ const visionData = [
   {
     title: 'Design Integrity',
     description: 'Our design aesthetic is established through a consistent process and a detailed concept brief, which considers client needs, site context, and the future occupiers. We combine and test these elements to create a singular design vision concealing many influencing layers. This singular vision, like a piece of artwork, is unique and individual. We believe the principles of design quality should always be present no matter the project brief or building scale.',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop'
+    image: '/assets/studio/vision/vision1.jpeg'
   },
   {
     title: 'Innovation',
     description: 'Maison More welcomes innovation through research and technology to contribute new ideas and challenging theories. We see technology as a tool, we engage with it and it is integral to our work, however we believe human touch must drive creativity. We heavily invest time in research through leading industry seminars, University tutoring and participation in international study tours.',
-    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053&auto=format&fit=crop'
+    image: '/assets/studio/vision/vision2.jpeg'
   },
   {
     title: 'Enhanced Living',
     description: 'We believe enhanced user experience and well-being should be at the forefront of design. We constantly consider the impact of design on the end user to ensure our designs promote positive human interaction and encourage healthier, enriched experiences.',
-    image: 'https://images.unsplash.com/photo-1600607687644-c7171b42498b?q=80&w=2070&auto=format&fit=crop'
+    image: '/assets/studio/vision/vision3.jpeg'
   }
 ];
 
@@ -40,7 +41,12 @@ export function StudioVision() {
           start: 'top top',
           end: '+=400%',
           pin: true,
-          scrub: 1,
+          scrub: 0.6,
+          invalidateOnRefresh: true,
+          onUpdate: () => {
+            // Force smooth updates
+            gsap.ticker.wake();
+          }
         }
       });
 
@@ -51,7 +57,7 @@ export function StudioVision() {
         x: '50vw', // Move to right
         y: '10vh', // Move down a bit
         duration: 1,
-        ease: 'power2.inOut'
+        ease: 'none'
       }, 0);
 
       // "03 OUR VISION" title fades in
@@ -59,25 +65,25 @@ export function StudioVision() {
 
       // Text 1 fades in
       tl.to(textsRef.current[0], { opacity: 1, y: 0, duration: 0.5 }, 0);
-      tl.to(textsRef.current[0]?.querySelectorAll('span > span') || [], { y: '0%', opacity: 1, duration: 0.5, stagger: 0.01, ease: 'power2.out' }, 0);
+      tl.to(textsRef.current[0]?.querySelectorAll('span > span') || [], { y: '0%', opacity: 1, duration: 0.5, stagger: 0.01, ease: 'none' }, 0);
 
       // 2. Image 2 slides up, Image 1 darkens
       tl.to(imagesRef.current[1], { y: '0%', duration: 1, ease: 'none' }, 1.5);
       tl.to(overlaysRef.current[0], { opacity: 0.5, duration: 1, ease: 'none' }, 1.5);
       
-      // Text 1 fades out, Text 2 fades in at 50% of Image 2 sliding up
+      // Text 1 fades out, Text 2 fades in
       tl.to(textsRef.current[0], { opacity: 0, y: -20, duration: 0.2 }, 1.9);
       tl.to(textsRef.current[1], { opacity: 1, y: 0, duration: 0.2 }, 2.1);
-      tl.to(textsRef.current[1]?.querySelectorAll('span > span') || [], { y: '0%', opacity: 1, duration: 0.5, stagger: 0.01, ease: 'power2.out' }, 2.1);
+      tl.to(textsRef.current[1]?.querySelectorAll('span > span') || [], { y: '0%', opacity: 1, duration: 0.5, stagger: 0.01, ease: 'none' }, 2.1);
 
       // 3. Image 3 slides up, Image 2 darkens
       tl.to(imagesRef.current[2], { y: '0%', duration: 1, ease: 'none' }, 3);
       tl.to(overlaysRef.current[1], { opacity: 0.5, duration: 1, ease: 'none' }, 3);
 
-      // Text 2 fades out, Text 3 fades in at 50% of Image 3 sliding up
+      // Text 2 fades out, Text 3 fades in
       tl.to(textsRef.current[1], { opacity: 0, y: -20, duration: 0.2 }, 3.4);
       tl.to(textsRef.current[2], { opacity: 1, y: 0, duration: 0.2 }, 3.6);
-      tl.to(textsRef.current[2]?.querySelectorAll('span > span') || [], { y: '0%', opacity: 1, duration: 0.5, stagger: 0.01, ease: 'power2.out' }, 3.6);
+      tl.to(textsRef.current[2]?.querySelectorAll('span > span') || [], { y: '0%', opacity: 1, duration: 0.5, stagger: 0.01, ease: 'none' }, 3.6);
 
       // Add a pause at the end before unpinning
       tl.to({}, { duration: 1 });
@@ -118,7 +124,7 @@ export function StudioVision() {
         {visionData.map((item, index) => (
           <div key={index} className="flex flex-col gap-6">
             <div className="w-full aspect-[4/5] overflow-hidden">
-              <img 
+              <OptimizedImage 
                 src={item.image} 
                 alt={item.title} 
                 className="w-full h-full object-cover"
@@ -154,7 +160,7 @@ export function StudioVision() {
               className="absolute inset-0 w-full h-full"
               style={{ transform: index === 0 ? 'translateY(0%)' : 'translateY(100%)' }}
             >
-              <img 
+              <OptimizedImage 
                 src={item.image} 
                 alt={item.title} 
                 className="w-full h-full object-cover"

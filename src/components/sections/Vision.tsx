@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { RevealText } from '../ui/RevealText';
+import { OptimizedImage } from '../ui/OptimizedImage';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -38,7 +39,8 @@ export const Vision = () => {
           start: 'top top',
           end: '+=400%',
           pin: true,
-          scrub: true,
+          scrub: 0.6,
+          invalidateOnRefresh: true,
         }
       });
 
@@ -49,20 +51,20 @@ export const Vision = () => {
           height: isMobile ? '40vh' : '50vh', 
           borderRadius: isMobile ? '10px' : '20px' 
         },
-        { width: '100vw', height: '100vh', borderRadius: '0px', ease: 'power2.inOut', duration: 1 }
+        { width: '100vw', height: '100vh', borderRadius: '0px', ease: 'none', duration: 1 }
       );
 
       // Animate text scale/size along with the box expansion
       tl.fromTo([title1.current, title2.current, title3.current],
         { scale: isMobile ? 0.6 : 0.4, transformOrigin: 'left center' },
-        { scale: 1, ease: 'power2.inOut', duration: 1 },
+        { scale: 1, ease: 'none', duration: 1 },
         0 
       );
 
       // Animate the description text block expansion (only for the first/active one)
       tl.fromTo(descRefs.current[0],
         { scale: 0.5, transformOrigin: 'top right', opacity: 0 },
-        { scale: 1, opacity: 1, ease: 'power2.inOut', duration: 1 },
+        { scale: 1, opacity: 1, ease: 'none', duration: 1 },
         0 // Start at the same time as box expansion
       );
 
@@ -97,7 +99,7 @@ export const Vision = () => {
       <div ref={expandBoxRef} className="relative overflow-hidden bg-black flex items-center justify-center">
         {/* Background Image */}
         <div className="absolute inset-0 w-full h-full z-10">
-          <img
+          <OptimizedImage
             src="/assets/fitzroy-north/hero.jpg"
             className="w-full h-full object-cover opacity-50"
             alt="Vision Background"

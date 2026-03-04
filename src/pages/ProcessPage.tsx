@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { RevealText } from '../components/ui/RevealText';
+import { OptimizedImage } from '../components/ui/OptimizedImage';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -91,14 +92,9 @@ export const ProcessPage = () => {
 
       {/* Parallax Image */}
       <div ref={parallaxContainerRef} className="w-full h-[70vh] overflow-hidden relative mb-20">
-        <img 
-          ref={parallaxImgRef}
-          src="/assets/parlington/hero.jpg" 
-          alt="Process Parallax" 
-          className="absolute top-[-20%] left-0 w-full h-[140%] object-cover"
-          loading="lazy"
-          decoding="async"
-        />
+        <div ref={parallaxImgRef} className="absolute top-[-20%] left-0 w-full h-[140%]">
+          <OptimizedImage src="/assets/parlington/hero.jpg" alt="Process Parallax" className="w-full h-full object-cover" loading="lazy" decoding="async" />
+        </div>
       </div>
 
       {/* Quote */}
@@ -124,8 +120,12 @@ export const ProcessPage = () => {
           <div className="w-full md:w-1/4"></div>
         </div>
         <div className="flex flex-col md:flex-row gap-6 w-full h-[60vh]">
-          <img src="/assets/loller/hero.jpg" className="w-full md:w-1/2 h-full object-cover" alt="Philosophy 1" loading="lazy" decoding="async" />
-          <img src="/assets/armadale-office/hero.jpg" className="w-full md:w-1/2 h-full object-cover" alt="Philosophy 2" loading="lazy" decoding="async" />
+          <div className="w-full md:w-1/2 h-full">
+            <OptimizedImage src="/assets/loller/hero.jpg" alt="Philosophy 1" className="w-full h-full object-cover" loading="lazy" decoding="async" />
+          </div>
+          <div className="w-full md:w-1/2 h-full">
+            <OptimizedImage src="/assets/armadale-office/hero.jpg" alt="Philosophy 2" className="w-full h-full object-cover" loading="lazy" decoding="async" />
+          </div>
         </div>
       </div>
 
@@ -168,11 +168,11 @@ export const ProcessPage = () => {
               <div className="w-full md:w-1/4 flex flex-col gap-6 text-sm font-medium">
                 {item.texts.slice(Math.ceil(item.texts.length / 2)).map((text, i) => (
                   <p key={i}><RevealText>{text}</RevealText></p>
-                ))}
+                ))}OptimizedImage
               </div>
               <div className="w-full md:w-1/4 flex justify-end">
                 <div className={`w-full aspect-[4/3] ${item.bgColor} flex items-center justify-center p-10`}>
-                  <img src={item.logo} alt={item.title} className="w-1/2 h-1/2 object-contain mix-blend-multiply" loading="lazy" decoding="async" />
+                  <OptimizedImage src={item.logo} alt={item.title} className="w-1/2 h-1/2 object-contain mix-blend-multiply" loading="lazy" decoding="async" />
                 </div>
               </div>
             </div>

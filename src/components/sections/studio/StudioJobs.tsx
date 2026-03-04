@@ -1,4 +1,5 @@
 import { ArrowUpRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { RevealText } from '../../ui/RevealText';
 
 export function StudioJobs() {
@@ -6,12 +7,14 @@ export function StudioJobs() {
     {
       title: "Graduate Architect",
       type: "Full-time",
-      location: "Melbourne"
+      location: "Anywhere",
+      slug: "graduate-architect"
     },
     {
       title: "Interior Designer",
       type: "Full-time",
-      location: "Melbourne"
+      location: "Anywhere",
+      slug: "interior-designer"
     }
   ];
 
@@ -43,9 +46,9 @@ export function StudioJobs() {
 
           <div className="flex flex-col gap-4">
             {jobs.map((job, index) => (
-              <a 
+              <Link 
                 key={index} 
-                href="#" 
+                to={`/studio/jobs/${job.slug}`}
                 className="group flex items-center justify-between p-6 bg-gray-100 hover:bg-gray-200 transition-colors rounded-sm"
               >
                 <div>
@@ -55,7 +58,7 @@ export function StudioJobs() {
                 <div className="w-12 h-12 bg-white flex items-center justify-center rounded-sm group-hover:scale-105 transition-transform">
                   <ArrowUpRight className="w-5 h-5" />
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
         </div>

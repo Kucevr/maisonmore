@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Link } from 'react-router-dom';
 import { RevealText } from '../components/ui/RevealText';
+import { OptimizedImage } from '../components/ui/OptimizedImage';
 import { projectsData } from '../data/projects';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -50,7 +51,7 @@ const ProjectCard = ({ project, imageClassName = "aspect-[4/3]" }: { project: ty
         onMouseEnter={() => setIsImageHovered(true)}
         onMouseLeave={() => setIsImageHovered(false)}
       >
-        <img 
+        <OptimizedImage 
           src={project.images[0]} 
           alt={project.title} 
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -69,7 +70,7 @@ const ProjectCard = ({ project, imageClassName = "aspect-[4/3]" }: { project: ty
             transform: 'translate(-50%, -50%)'
           }}
         >
-          <img 
+          <OptimizedImage 
             src={project.images[(currentImageIndex + 1) % project.images.length]} 
             className="w-full h-full object-cover" 
             alt="" 

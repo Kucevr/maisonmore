@@ -160,7 +160,7 @@ export const projectsData = [
     },
     quote: projectQuotes[i],
     about1: projectAbouts[i].p1,
-    image2: `/assets/${slug}/detail.jpg`,
+    image2: `/assets/${slug}/1.jpg`,
     about2: projectAbouts[i].p2,
   };
 });
