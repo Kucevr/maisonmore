@@ -76,7 +76,7 @@ export const Header = () => {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 w-full z-50 px-6 py-4 md:py-6 flex justify-between items-center ${
+        className={`fixed top-0 left-0 w-full z-[110] px-6 py-4 md:py-6 flex justify-between items-center ${
           isHomePage ? 'transition-none' : 'transition-opacity duration-300'
         } ${
           isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
@@ -101,7 +101,7 @@ export const Header = () => {
           
           <button 
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="text-16px font-medium uppercase md:hidden z-[60]"
+            className="text-16px font-medium uppercase md:hidden z-[120]"
           >
             {isMobileMenuOpen ? 'Close' : 'Menu'}
           </button>
